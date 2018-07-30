@@ -18,7 +18,8 @@ class CreateCareersTable extends Migration
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
             $table->string('cv')->nullable();
-            $table->integer('job_id')->nullable();
+            $table->integer('job_id')->unsigned();
+            $table->foreign('job_id')->references('id')->on('jobs');
             $table->timestamps();
         });
     }

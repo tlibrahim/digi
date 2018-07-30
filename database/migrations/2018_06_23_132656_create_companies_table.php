@@ -17,7 +17,8 @@ class CreateCompaniesTable extends Migration
             $table->increments('id');
             $table->integer('isverified')->default(0);
             $table->string('name')->nullable();
-            $table->integer('industry_id')->unsigned()->nullable();
+            $table->integer('industry_id')->unsigned();
+            $table->foreign('industry_id')->references('id')->on('industries');
             $table->text('intro')->nullable();
             $table->string('address')->nullable();
             $table->string('location_credential')->nullable();

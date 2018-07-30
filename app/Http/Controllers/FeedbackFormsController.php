@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\FeedbackForms;
+use Exception;
 
 class FeedbackFormsController extends Controller
 {
@@ -97,7 +98,11 @@ class FeedbackFormsController extends Controller
         if ( \App\Http\Controllers\UsersController::myPermitedTrigger('feedback_forms' ,'delete') == 0 ) {
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
-        FeedbackForms::find($id)->delete();
+        try {
+            FeedbackForms::find($id)->delete();
+        } catch (Exception $e) {
+            return back()->with('error' ,'Can`t delete this feedback form ,it`s related to other data');
+        }
         return redirect('feedback-forms')->with('status' ,'Feedback Form Deleted Successfully!');
     }
 

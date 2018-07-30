@@ -18,6 +18,7 @@ class CreateFAQsTable extends Migration
             $table->string('question');
             $table->string('answer');
             $table->integer('cat_id')->unsigned();
+            $table->foreign('cat_id')->references('id')->on('questions__categories');
             $table->timestamps();
         });
     }

@@ -18,7 +18,8 @@ class CreateBlogCommentsTable extends Migration
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->longText('comment')->nullable();
-            $table->integer('blog_id')->nullable();
+            $table->integer('blog_id')->unsigned();
+            $table->foreign('blog_id')->references('id')->on('blogs');
             $table->timestamps();
         });
     }

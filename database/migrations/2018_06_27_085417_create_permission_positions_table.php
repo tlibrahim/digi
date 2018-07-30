@@ -15,8 +15,10 @@ class CreatePermissionPositionsTable extends Migration
     {
         Schema::create('permission_positions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('permission_id');
-            $table->integer('position_id');
+            $table->integer('permission_id')->unsigned();
+            $table->foreign('permission_id')->references('id')->on('permissions');
+            $table->integer('position_id')->unsigned();
+            $table->foreign('position_id')->references('id')->on('positions');
             $table->timestamps();
         });
     }

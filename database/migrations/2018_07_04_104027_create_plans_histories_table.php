@@ -18,7 +18,8 @@ class CreatePlansHistoriesTable extends Migration
             $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('price')->nullable();
-            $table->string('plan_id')->nullable();
+            $table->integer('plan_id')->unsigned();
+            $table->foreign('plan_id')->references('id')->on('plans');
             $table->string('transaction')->nullable();
             $table->datetime('transaction_date')->nullable();
             $table->timestamps();

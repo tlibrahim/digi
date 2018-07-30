@@ -15,7 +15,8 @@ class CreateProposalsTable extends Migration
     {
         Schema::create('proposals', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id')->nullable();
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->string('type')->nullable();
             $table->timestamps();
         });

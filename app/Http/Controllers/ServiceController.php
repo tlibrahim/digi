@@ -76,6 +76,10 @@ class ServiceController extends Controller
         }
 		try {
 			$service = Services::findOrFail($id);
+		} catch (Exception $e) {
+			return back()->with('error' ,'Service Not Found');
+		}
+		try {
 			if ($service->tasks) {
 				foreach($service->tasks as $t) {
 					$t->delete();
@@ -84,7 +88,7 @@ class ServiceController extends Controller
 			$service->delete();
 			return redirect('services')->with('status' ,'Service Deleted Successfully!');
 		} catch (Exception $e) {
-			return back()->with('error' ,'Service Not Found');
+			return back()->with('error' ,'Can`t delete this service ,it`s related to other data');
 		}
 	}
 }

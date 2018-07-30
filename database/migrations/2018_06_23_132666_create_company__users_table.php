@@ -16,7 +16,9 @@ class CreateCompanyUsersTable extends Migration
         Schema::create('company__users', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('company_id')->unsigned();
-            $table->integer('privlage_id')->unsigned()->nullable();
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('privlage_id')->unsigned();
+            $table->foreign('privlage_id')->references('id')->on('privlages');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');

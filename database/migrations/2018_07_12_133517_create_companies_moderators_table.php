@@ -15,8 +15,10 @@ class CreateCompaniesModeratorsTable extends Migration
     {
         Schema::create('companies_moderators', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('crm_user_id')->nullable();
-            $table->integer('company_id')->nullable();
+            $table->integer('crm_user_id')->unsigned();
+            $table->foreign('crm_user_id')->references('id')->on('crm_users');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->integer('start')->default(1);
             $table->timestamps();
         });

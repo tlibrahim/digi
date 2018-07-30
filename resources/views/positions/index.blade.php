@@ -18,6 +18,11 @@
 		            	<strong>{{ session('status') }}</strong>
 		            </div>
 		            @endif
+		            @if(session()->has('error'))
+		            <div class="alert alert-danger">
+		            	<strong>{{ session('error') }}</strong>
+		            </div>
+		            @endif
 		        </div>
 	            <div class="row">
 	              	<table id="example1" class="table table-bordered table-striped">

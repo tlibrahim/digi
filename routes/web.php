@@ -12,6 +12,11 @@
 
 Auth::routes();
 
+// Route::get('test' ,function() {
+// 	echo 'test<br>';
+// 	dd(Hash::check('hashedpass' ,\App\CrmUser::find(21)->password));
+// });
+
 Route::middleware(['auth'])->group(function() {
 	Route::get('/', function () {
 	    return view('home');

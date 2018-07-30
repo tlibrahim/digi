@@ -15,8 +15,10 @@ class CreateTaskInputsTable extends Migration
     {
         Schema::create('task_inputs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('task_id')->nullable();
-            $table->integer('input_name_id')->nullable();
+            $table->integer('task_id')->unsigned();
+            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->integer('input_name_id')->unsigned();
+            $table->foreign('input_name_id')->references('id')->on('input_names');
             $table->string('input_title')->nullable();
             $table->timestamps();
         });

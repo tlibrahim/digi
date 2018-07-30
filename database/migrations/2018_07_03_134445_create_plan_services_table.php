@@ -15,8 +15,10 @@ class CreatePlanServicesTable extends Migration
     {
         Schema::create('plan_services', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('plan_id')->nullable();
-            $table->integer('service_id')->nullable();
+            $table->integer('plan_id')->unsigned();
+            $table->foreign('plan_id')->references('id')->on('plans');
+            $table->integer('service_id')->unsigned();
+            $table->foreign('service_id')->references('id')->on('services');
             $table->integer('quantity')->nullable();
             $table->timestamps();
         });

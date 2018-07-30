@@ -16,6 +16,7 @@ class CreateProjectGallariesTable extends Migration
         Schema::create('project__gallaries', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_id')->unsigned();
+            $table->foreign('project_id')->references('id')->on('projects');
             $table->integer('image_url')->unsigned();
             $table->timestamps();
         });

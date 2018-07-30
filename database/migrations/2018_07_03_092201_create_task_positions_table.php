@@ -15,8 +15,10 @@ class CreateTaskPositionsTable extends Migration
     {
         Schema::create('task_positions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('task_id')->nullable();
-            $table->integer('position_id')->nullable();
+            $table->integer('task_id')->unsigned();
+            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->integer('position_id')->unsigned();
+            $table->foreign('position_id')->references('id')->on('positions');
             $table->timestamps();
         });
     }

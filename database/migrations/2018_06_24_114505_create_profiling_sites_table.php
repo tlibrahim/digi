@@ -15,10 +15,14 @@ class CreateProfilingSitesTable extends Migration
     {
         Schema::create('profiling_sites', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('profiling_id')->nullable();
-            $table->integer('content_id')->nullable();
-            $table->integer('technology_id')->nullable();
-            $table->integer('look_id')->nullable();
+            $table->integer('profiling_id')->unsigned();
+            $table->foreign('profiling_id')->references('id')->on('profilings');
+            $table->integer('content_id')->unsigned();
+            $table->foreign('content_id')->references('id')->on('contents');
+            $table->integer('technology_id')->unsigned();
+            $table->foreign('technology_id')->references('id')->on('technologies');
+            $table->integer('look_id')->unsigned();
+            $table->foreign('look_id')->references('id')->on('look_and_feels');
             $table->string('link')->nullable();
             $table->timestamps();
         });

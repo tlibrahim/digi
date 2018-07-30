@@ -16,7 +16,9 @@ class CreateRolePrivlagesTable extends Migration
         Schema::create('role__privlages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('role_id')->unsigned();
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->integer('privlage_id')->unsigned();
+            $table->foreign('privlage_id')->references('id')->on('privlages');
             $table->timestamps();
         });
     }

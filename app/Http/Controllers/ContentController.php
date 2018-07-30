@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Content;
+use Exception;
 
 class ContentController extends Controller
 {
@@ -97,7 +98,11 @@ class ContentController extends Controller
         if ( \App\Http\Controllers\UsersController::myPermitedTrigger('content' ,'delete') == 0 ) {
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
-        Content::find($id)->delete();
+        try {
+            Content::find($id)->delete();
+        } catch (Exception $e) {
+            return redirect('content')->with('error' ,'Can`t delete this content ,it`s related to other data!');
+        }
         return redirect('content')->with('status' ,'Content Deleted Successfully!');
     }
 }

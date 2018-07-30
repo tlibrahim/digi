@@ -95,6 +95,10 @@ class UsersController extends Controller
         }
     	try {
     		$user = CrmUser::findOrFail($id);
+        } catch (Exception $e) {
+            return back()->with('error' ,'User Not Found');
+        }
+        try {
     		if ($user->positions->count() > 0) {
     			foreach($user->positions as $p) {
     				$p->delete();
@@ -102,9 +106,9 @@ class UsersController extends Controller
     		}
     		$user->delete();
     		return redirect('users')->with('status' ,'User Deleted Found');
-    	} catch (Exception $e) {
-    		return back()->with('error' ,'User Not Found');
-    	}
+        } catch (Exception $e) {
+            return back()->with('error' ,'Can`t delete this user ,it`s related to othder data');
+        }
     }
 
     public static function userPermissions($departement_name = null ,$suffix = null) {
@@ -141,6 +145,13 @@ class UsersController extends Controller
             return $userPermissions->where('trigger' ,$fnc)->first()?1:0;
         }
         return $userPermissions->first()?1:0;
+    }
+
+    public static function myPermissions($cat) {
+        $userPositions = auth()->user()->positions()->pluck('position_id')->toArray();
+        $userPermissionIds = PermissionPositions::whereIn('position_id' ,$userPositions)->distinct()->pluck('permission_id')->toArray();
+        $userPermissions = Permissions::whereIn('id' ,$userPermissionIds);
+        return $userPermissions->where('trigger_category' ,$cat)->pluck('trigger')->toArray();
     }
 }
 

@@ -16,6 +16,7 @@ class CreateBranchGallariesTable extends Migration
         Schema::create('branch__gallaries', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('branch_id')->unsigned();
+            $table->foreign('branch_id')->references('id')->on('branches');
             $table->integer('image_url')->unsigned();
             $table->timestamps();
         });

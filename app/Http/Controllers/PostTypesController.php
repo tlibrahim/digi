@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\PostTypes;
-
+use Exception;
 class PostTypesController extends Controller
 {
     /**
@@ -97,7 +97,11 @@ class PostTypesController extends Controller
         if ( \App\Http\Controllers\UsersController::myPermitedTrigger('post_types' ,'delete') == 0 ) {
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
-        PostTypes::find($id)->delete();
+        try {
+            PostTypes::find($id)->delete();
+        } catch (Exception $e) {
+            return back()->with('error' ,'Can`t delete this type ,it`s related to other data');
+        }
         return redirect('post-types')->with('status' ,'Type Deleted Successfully!');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\PromoteStatus;
+use Exception;
 
 class PromoteStatusController extends Controller
 {
@@ -97,7 +98,11 @@ class PromoteStatusController extends Controller
         if ( \App\Http\Controllers\UsersController::myPermitedTrigger('promote_status' ,'delete') == 0 ) {
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
-        PromoteStatus::find($id)->delete();
+        try {
+            PromoteStatus::find($id)->delete();
+        } catch (Exception $e) {
+            return back()->with('error' ,'Can`t delete this promote ,it`s related to other data');
+        }
         return redirect('promote-status')->with('status' ,'Promote Status Deleted Successfully!');
     }
 }

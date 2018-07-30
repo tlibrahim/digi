@@ -15,8 +15,10 @@ class CreateFeedbacksTable extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('potential_id')->nullable();
-            $table->integer('feedback_form_id')->nullable();
+            $table->integer('potential_id')->unsigned();
+            $table->foreign('potential_id')->references('id')->on('companies');
+            $table->integer('feedback_form_id')->unsigned();
+            $table->foreign('feedback_form_id')->references('id')->on('feedback_forms');
             $table->longText('values')->nullable();
             $table->timestamps();
         });

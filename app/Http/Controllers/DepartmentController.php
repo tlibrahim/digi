@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Department;
 use Illuminate\Http\Request;
+use Exception;
 
 class DepartmentController extends Controller
 {
@@ -45,7 +46,11 @@ class DepartmentController extends Controller
         if ( \App\Http\Controllers\UsersController::myPermitedTrigger('departement' ,'delete') == 0 ) {
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
-        Department::find($department_id)->delete();
+        try {
+            Department::find($department_id)->delete();
+        } catch (Exception $e) {
+            return back()->with('error' ,'Can`t delete this departement ,it`s related to other data');
+        }
         return back()->with('status' ,'Departement Deleted Successfully!');
     }
 }

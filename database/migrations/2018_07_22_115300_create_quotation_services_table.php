@@ -15,9 +15,11 @@ class CreateQuotationServicesTable extends Migration
     {
         Schema::create('quotation_services', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('service_id')->nullable();
+            $table->integer('service_id')->unsigned();
+            $table->foreign('service_id')->references('id')->on('services');
             $table->string('quantity')->nullable();
-            $table->integer('quotation_id')->nullable();
+            $table->integer('quotation_id')->unsigned();
+            $table->foreign('quotation_id')->references('id')->on('quotations');
             $table->timestamps();
         });
     }

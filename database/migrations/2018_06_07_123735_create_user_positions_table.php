@@ -15,8 +15,10 @@ class CreateUserPositionsTable extends Migration
     {
         Schema::create('user_positions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('position_id')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->integer('position_id')->unsigned();
+            $table->foreign('position_id')->references('id')->on('positions');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('crm_users');
             $table->timestamps();
         });
     }

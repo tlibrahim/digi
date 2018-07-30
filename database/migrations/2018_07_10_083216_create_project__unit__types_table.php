@@ -16,7 +16,9 @@ class CreateProjectUnitTypesTable extends Migration
         Schema::create('project__unit__types', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('unit_type_id')->unsigned();
+            $table->foreign('unit_type_id')->references('id')->on('unit__types');
             $table->integer('project_id')->unsigned();
+            $table->foreign('project_id')->references('id')->on('projects');
             $table->timestamps();
         });
     }

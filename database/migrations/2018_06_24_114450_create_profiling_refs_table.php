@@ -15,7 +15,8 @@ class CreateProfilingRefsTable extends Migration
     {
         Schema::create('profiling_refs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('profiling_id')->nullable();
+            $table->integer('profiling_id')->unsigned();
+            $table->foreign('profiling_id')->references('id')->on('profilings');
             $table->string('reference')->nullable();
             $table->longText('providing')->nullable();
             $table->timestamps();

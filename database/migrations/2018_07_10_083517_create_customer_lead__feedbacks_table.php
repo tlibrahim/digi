@@ -16,8 +16,11 @@ class CreateCustomerLeadFeedbacksTable extends Migration
         Schema::create('customer_lead__feedbacks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('customer_lead_id')->unsigned();
+            $table->foreign('customer_lead_id')->references('id')->on('customer_leads');
             $table->integer('company_user_id')->unsigned();
+            $table->foreign('company_user_id')->references('id')->on('company__users');
             $table->integer('lead_status_feedback_id')->unsigned();
+            $table->foreign('lead_status_feedback_id')->references('id')->on('lead__status__feedbacks');
             $table->string('date')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

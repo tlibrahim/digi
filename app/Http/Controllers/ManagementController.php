@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Management;
+use Exception;
 
 class ManagementController extends Controller
 {
@@ -97,7 +98,11 @@ class ManagementController extends Controller
         if ( \App\Http\Controllers\UsersController::myPermitedTrigger('management' ,'delete') == 0 ) {
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
-        Management::find($id)->delete();
+        try {
+            Management::find($id)->delete();
+        } catch (Exception $e) {
+            return back()->with('error' ,'Can`t delete this management ,it`s related to other data');
+        }
         return redirect('management')->with('status' ,'Management Deleted Successfully!');
     }
 }

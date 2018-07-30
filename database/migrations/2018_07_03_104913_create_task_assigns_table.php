@@ -18,8 +18,10 @@ class CreateTaskAssignsTable extends Migration
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
             $table->date('end_date')->nullable();
-            $table->integer('task_id')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->integer('task_id')->unsigned();
+            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('crm_users');
             $table->integer('client_plan_id')->nullable();
             $table->timestamps();
         });

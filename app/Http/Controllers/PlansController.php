@@ -8,6 +8,8 @@ use App\Services;
 use App\PlansHistory;
 use App\PlanServicesHistory;
 
+use Exception;
+
 class PlansController extends Controller
 {
     public function __construct() {
@@ -89,7 +91,11 @@ class PlansController extends Controller
                 @$s->delete();
             }
         }
-        $plan->delete();
+        try {
+            $plan->delete();
+        } catch (Exception $e) {
+            return back()->with('error' ,'Can`t delete this plan ,it`s related to other data');
+        }
         return response(['status' => 'ok' ,'code' => $this->renderPlans()]);
     }
 

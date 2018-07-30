@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Hash;
 
 class CrmUser extends Authenticatable
 {
@@ -28,7 +29,7 @@ class CrmUser extends Authenticatable
     ];
 
     public function SetPasswordAttribute($p) {
-        $this->attributes['password'] = bcrypt($p);
+        $this->attributes['password'] = Hash::make($p);
     }
 
     public function positions() {

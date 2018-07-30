@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Positions;
 use App\Department;
 
+use Exception;
+
 //helpers
 
 class PositionController extends Controller
@@ -49,7 +51,11 @@ class PositionController extends Controller
         if ( \App\Http\Controllers\UsersController::myPermitedTrigger('positions' ,'delete') == 0 ) {
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
-		Positions::find($id)->delete();
+        try {
+			Positions::find($id)->delete();
+		} catch (Exception $e) {
+			return back()->with('error' ,'Can`t delete this position ,it`s related to other data');
+		}
 		return back()->with('status' ,'Position Deleted Successfully!');
 	}
 }

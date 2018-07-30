@@ -43,37 +43,19 @@ use App\Jobs\SendVerificationEmail;
 
 class PotentialsController extends Controller {
     public function index() {
-        $myPermissions = UsersController::userPermissions('Business Development');
+        $myPermissions = UsersController::myPermissions('potential');
         $industries = Industries::all();
-        $bd_id = Department::where('name' ,'Business Development')->get()->first()->id;
-        $tl_position_id = Positions::where('departement_id' ,$bd_id)->where('type' ,'Team Leader')->first()->id;
-        $tl_id = UserPositions::where('position_id' ,$tl_position_id)->pluck('user_id')->toArray();
-
-        if( in_array(auth()->user()->id ,$tl_id) ) {
-            $tl_logged = true;
-        } else {
-            $tl_logged = false;
-        }
-        return view('potentials.home' ,compact('tl_logged' ,'industries' ,'myPermissions'));
+        return view('potentials.home' ,compact('industries' ,'myPermissions'));
     }
     
     public function loadPotentials() {
-        $myPermissions = UsersController::userPermissions('Business Development');
+        $myPermissions = UsersController::myPermissions('potential');
         $potentials = Companies::all();
         $feedbacks = FeedbackForms::all();
         $industries = Industries::all();
         $prilleges = Privlage::all();
 
         $bd_id = Department::where('name' ,'Business Development')->get()->first()->id;
-        $tl_position_id = Positions::where('departement_id' ,$bd_id)->where('type' ,'Team Leader')->first()->id;
-        $tl_id = UserPositions::where('position_id' ,$tl_position_id)->pluck('user_id')->toArray();
-
-        if( in_array(auth()->user()->id ,$tl_id) ) {
-            $tl_logged = true;
-        } else {
-            $tl_logged = false;
-            $potentials = auth()->user()->potentials;
-        }
 
         $position_ids = Positions::where('departement_id' ,$bd_id)->pluck('id')->toArray();
         $user_ids = UserPositions::whereIn('position_id' ,$position_ids)->pluck('user_id')->toArray();
@@ -82,7 +64,7 @@ class PotentialsController extends Controller {
         $code = view('potentials.table' ,
                       compact('industries' ,'potentials' ,'levels' ,'manage' ,
                       'types' ,'techs' ,'looks' ,'content' ,'promotes' ,'feedbacks' ,
-                      'users' ,'myPermissions' ,'tl_logged' ,'meeting_form_id' ,'prilleges'))->render();
+                      'users' ,'myPermissions' ,'meeting_form_id' ,'prilleges'))->render();
         return response(['code' => $code]);
     }
     
@@ -470,16 +452,7 @@ class PotentialsController extends Controller {
     }
     
     private function renderCompanyTr($com_id) {
-        $bd_id = Department::where('name' ,'Business Development')->get()->first()->id;
-        $tl_position_id = Positions::where('departement_id' ,$bd_id)->where('type' ,'Team Leader')->first()->id;
-        $tl_id = UserPositions::where('position_id' ,$tl_position_id)->pluck('user_id')->toArray();
-
-        if( in_array(auth()->user()->id ,$tl_id) ) {
-            $tl_logged = true;
-        } else {
-            $tl_logged = false;
-        }
-        $myPermissions = UsersController::userPermissions('Business Development');
+        $myPermissions = UsersController::myPermissions('potential');
         $p = Companies::find($com_id);
         $prilleges = Privlage::all();
         $levels = Levels::all();
@@ -494,22 +467,13 @@ class PotentialsController extends Controller {
         $meeting_form_id = FeedbackForms::where('name' ,'like' ,'%Meeting%')->first()->id;
         
         return view('potentials.pop-up.company-tr' ,
-                            compact('tl_logged' ,'p' ,'myPermissions' ,'prilleges' ,'levels' ,
+                            compact('p' ,'myPermissions' ,'prilleges' ,'levels' ,
                                     'manage' ,'techs' ,'types' ,'looks' ,'content' ,'promotes' ,'feedbacks' ,'industries' ,'meeting_form_id')
                     )->render();
     }
     
     private function renderTasksTd($com_id) {
-        $bd_id = Department::where('name' ,'Business Development')->get()->first()->id;
-        $tl_position_id = Positions::where('departement_id' ,$bd_id)->where('type' ,'Team Leader')->first()->id;
-        $tl_id = UserPositions::where('position_id' ,$tl_position_id)->pluck('user_id')->toArray();
-
-        if( in_array(auth()->user()->id ,$tl_id) ) {
-            $tl_logged = true;
-        } else {
-            $tl_logged = false;
-        }
-        $myPermissions = UsersController::userPermissions('Business Development');
+        $myPermissions = UsersController::myPermissions('potential');
         $p = Companies::find($com_id);
         $prilleges = Privlage::all();
         $levels = Levels::all();
@@ -524,7 +488,7 @@ class PotentialsController extends Controller {
         $meeting_form_id = FeedbackForms::where('name' ,'like' ,'%Meeting%')->first()->id;
         
         return view('potentials.pop-up.tasks-td' ,
-                            compact('tl_logged' ,'p' ,'myPermissions' ,'prilleges' ,'levels' ,
+                            compact('p' ,'myPermissions' ,'prilleges' ,'levels' ,
                                     'manage' ,'techs' ,'types' ,'looks' ,'content' ,'promotes' ,'feedbacks' ,'industries' ,'meeting_form_id')
                     )->render();
     }
@@ -558,7 +522,8 @@ class PotentialsController extends Controller {
                 break;
             case 'connections':
                 $prilleges = Privlage::all();
-                return response(['status' => 'ok' ,'code' => view('potentials.pop-up.connections.connections' ,compact('p' ,'prilleges'))->render()]);
+                $myPermissions = UsersController::myPermissions('potential');
+                return response(['status' => 'ok' ,'code' => view('potentials.pop-up.connections.connections' ,compact('p' ,'prilleges' ,'myPermissions'))->render()]);
                 break;
             case 'connection':
                 $prilleges = Privlage::all();

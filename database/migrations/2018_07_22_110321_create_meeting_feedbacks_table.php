@@ -15,7 +15,8 @@ class CreateMeetingFeedbacksTable extends Migration
     {
         Schema::create('meeting_feedbacks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id')->nullable();
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->string('date_time')->nullable();
             $table->longText('notes')->nullable();
             $table->string('type')->nullable();

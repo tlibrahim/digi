@@ -5,7 +5,7 @@
       		</div>
       		@foreach(@$p->connections()->orderBy('id' ,'desc')->get() as $c)
       		<div class="clearfix"></div>
-      		<form method="post" action="{{ url('potentials/connection/'.@$p->id.'/edit'.'/'.@$c->id) }}" onsubmit="return editConnection(event);return false">
+      		<form method="post" action="{{ url('potentials/connection/'.@$p->id.'/edit'.'/'.@$c->id) }}" onsubmit="{{ in_array('edit_connection' ,$myPermissions) ? 'return editConnection(event);' : 'swal("You Are Not Authorized To Edit Connection" ,{icon:"error"});' }}return false">
 	      		<div class="modal-body">
 					@csrf
 					<input type="hidden" name="company_id" value="{{ @$p->id }}">
@@ -32,7 +32,9 @@
 					</div>
 					<div class="modal-footer" style="padding: 15px 0">
 						<button class="btn btn-primary pull-right">Save</button>
+						@if( in_array('delete_connection' ,$myPermissions) )
 			        	<a onclick="deleteConnection({{ @$c->id }} ,event)" class="btn btn-danger pull-left" style="margin-left: 0">Delete</a>
+			        	@endif
 					</div>
 				</div>
 			</form>

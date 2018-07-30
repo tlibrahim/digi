@@ -76,6 +76,10 @@ class TasksController extends Controller
         }
     	try {
     		$task = Tasks::findOrFail($id);
+        } catch (Exception $e) {
+            return back()->with('error' ,'This Task Not Available');
+        }
+        try {
             foreach($task->inputs as $in){
                 @$in->delete();
             }
@@ -87,7 +91,7 @@ class TasksController extends Controller
             }
     		$task->delete();
     	} catch (Exception $e) {
-    		return back()->with('error' ,'This Task Not Available');
+    		return back()->with('error' ,'Can`t delete this task ,it`s related to other data');
     	}
     	return back()->with('status' ,'Task Deleted Successfully!');
     }

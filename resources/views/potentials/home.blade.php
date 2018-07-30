@@ -132,7 +132,7 @@
                   <div class="block block-bordered">
                       <div class="block-header bg-gray-lighter">
                         <div class="btn-group pull-right" role="group">
-                          @if( $tl_logged || in_array('add_potential' ,$myPermissions) )
+                          @if(  in_array('add_potential' ,$myPermissions) )
                             <a class="btn btn-default" title="Add Connection"
                               data-target="#add-potentail" data-toggle="modal">
                               <i class="fa fa-plus"></i>

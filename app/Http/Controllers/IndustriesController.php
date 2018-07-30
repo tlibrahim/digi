@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Industries;
-
+use Exception;
 class IndustriesController extends Controller
 {
     /**
@@ -96,7 +96,11 @@ class IndustriesController extends Controller
         if ( \App\Http\Controllers\UsersController::myPermitedTrigger('industries' ,'delete') == 0 ) {
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
-        Industries::find($id)->delete();
+        try {
+            Industries::find($id)->delete();
+        } catch (Exception $e) {
+            return back()->with('error' ,'Can`t delete this industry ,it`s related to other data');
+        }
         return redirect('industries')->with('status' ,'Industry Deleted Successfully!');
     }
 }

@@ -15,8 +15,10 @@ class CreateServiceTasksTable extends Migration
     {
         Schema::create('service_tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('task_id')->nullable();
-            $table->integer('service_id')->nullable();
+            $table->integer('task_id')->unsigned();
+            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->integer('service_id')->unsigned();
+            $table->foreign('service_id')->references('id')->on('services');
             $table->timestamps();
         });
     }
