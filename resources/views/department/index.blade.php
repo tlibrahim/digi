@@ -28,7 +28,8 @@
 	              	<table id="example1" class="table table-bordered table-striped">
 		                <thead>
 		                <tr>
-		                  <th width="60%">Title</th>
+		                  <th width="50%">Title</th>
+		                  <th width="25%">Is Proposal</th>
 		                  <th>Actions</th>
 		                </tr>
 		                </thead>
@@ -36,6 +37,7 @@
 		                	@foreach($departements as $d)
 		                	<tr>
 		                		<td>{{ @$d->name }}</td>
+		                		<td>{{ @$d->is_proposal == 1 ? 'Is Proposal' : 'Is Not Proposal' }}</td>
 		                		<td>
                                     @if ( \App\Http\Controllers\UsersController::myPermitedTrigger('departement' ,'edit') == 1 )
 							        <a href="{{ url('departements/edit/'.@$d->id) }}" class="btn btn-info">Edit</a>

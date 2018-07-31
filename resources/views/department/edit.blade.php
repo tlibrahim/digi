@@ -20,6 +20,13 @@
 						<input type="text" required value="{{ $department->name }}" placeholder="Name" name="name" class="form-control">
 					</div>
 					<div class="form-group">
+						<label>Proposal</label>
+						<select required name="is_proposal" class="form-control">
+							<option {{ $department->is_proposal == 0 ? 'selected' : '' }} value="0">Is Not Proposal</option>
+							<option {{ $department->is_proposal == 1 ? 'selected' : '' }} value="1">Is Proposal</option>
+						</select>
+					</div>
+					<div class="form-group">
 						<button class="btn btn-primary">Save</button>
 					</div>
 				</form>

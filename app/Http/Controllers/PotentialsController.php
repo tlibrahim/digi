@@ -181,6 +181,9 @@ class PotentialsController extends Controller {
         if ($c->profile()->count() > 0) {
             $perc += 15;
         }
+        if ($c->quotation()->count() > 0 && $c->proposal()->count() > 0) {
+            $perc += 10;
+        }
         $perc = $perc.'%';
         return response(['msg' => 'Connection Deleted Successfully!' ,'id' => $con->company_id ,'perc' => $perc]);
     }
@@ -275,6 +278,8 @@ class PotentialsController extends Controller {
         $p = Companies::find($pot_id);
         return response([
             'status' => 'ok',
+            'id' => $p->id,
+            'perc' => $this->calcPerc($p->id),
             'formBody' => view('potentials.pop-up.profiling.render.profile-form-body' ,compact(
                 'levels' ,'manage' ,'types' ,'techs' ,'looks' ,'content' ,'promotes' ,'p'
             ))->render()
@@ -392,14 +397,18 @@ class PotentialsController extends Controller {
             }
             $services = request('services');
             foreach($services as $k => $s) {
-                QuotationServices::create(['quotation_id' => $quot->id, 'service_id' => $s, 'quantity' => request('quantites')[$k]?:0 ]);
+                if ( $s != 'Select Service' ) {
+                    QuotationServices::create(['quotation_id' => $quot->id, 'service_id' => $s, 'quantity' => request('quantites')[$k]?:0 ]);
+                }
             }
             return response(['status' => 'ok' ,'msg' => 'Quotation Updated Successfully!' ,'icon' => 'success' ,'perc' => $this->calcPerc(request('company_id')) ,'id' => request('company_id')]);
         } else {
             $quot = Quotation::create(request()->all());
             $services = request('services');
             foreach($services as $k => $s) {
-                QuotationServices::create(['quotation_id' => $quot->id, 'service_id' => $s, 'quantity' => request('quantites')[$k]?:0 ]);
+                if ( $s != 'Select Service' ) {
+                    QuotationServices::create(['quotation_id' => $quot->id, 'service_id' => $s, 'quantity' => request('quantites')[$k]?:0 ]);
+                }
             }
             return response(['status' => 'ok' ,'msg' => 'Quotation Created Successfully!' ,'icon' => 'success' ,'perc' => $this->calcPerc(request('company_id')) ,'id' => request('company_id')]);
         }
@@ -511,6 +520,9 @@ class PotentialsController extends Controller {
         if ($c->profile()->count() > 0) {
             $perc += 15;
         }
+        if ($c->quotation()->count() > 0 && $c->proposal()->count() > 0) {
+            $perc += 10;
+        }
         return $perc.'%';
     }
     
@@ -530,7 +542,8 @@ class PotentialsController extends Controller {
                 return response(['status' => 'ok' ,'code' => view('potentials.pop-up.connections.connection' ,compact('p' ,'prilleges'))->render()]);
                 break;
             case 'proposal':
-                return response(['status' => 'ok' ,'code' => view('potentials.pop-up.proposal' ,compact('p'))->render()]);
+                $departments = Department::where('is_proposal' ,1)->get();
+                return response(['status' => 'ok' ,'code' => view('potentials.pop-up.proposal' ,compact('p' ,'departments'))->render()]);
                 break;
             case 'meeting-feedback':
                 return response(['status' => 'ok' ,'code' => view('potentials.pop-up.meeting-feedback' ,compact('p'))->render()]);

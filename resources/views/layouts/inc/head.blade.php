@@ -56,6 +56,11 @@
            folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="{{ asset('adminlte') }}/dist/css/skins/_all-skins.min.css">
         <!-- Admin LTE Files -->
+        <style type="text/css" media="screen">
+            .dataTables_wrapper .dataTables_paginate .paginate_button {
+                padding: 3px !important
+            }
+        </style>
         @yield('styles')
     </head>
     <body style="background-color: #e6e6e6">

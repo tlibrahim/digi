@@ -264,13 +264,17 @@
       success : function (rData) {
         if (rData.status == 'ok') {
           form.html(rData.formBody)
+          loadDateTime()
           $('.modal').animate({ scrollTop: 0 }, 'slow');
+          var div = $("#prog-perc-"+rData.id)
+          div.css('width' ,rData.perc)
+          div.text(rData.perc)
         } else {
           swal("Some Error")
         }
       } ,
       error : function (erData) {
-        console.log(erData)
+        swal('Can`t update this profiling' ,{icon:'error'})
       }
     })
 
@@ -302,6 +306,7 @@
       url:'{{ url("feedback-forms/render") }}/'+$(event.target).val(),
       success : function (rData) {
         $('.form-loaded-body').html(rData.code)
+        loadDateTime()
         $(".date_time").datetimepicker({autoclose: true});
         $(".date").datepicker({format:'dd-mm-yyyy' ,autoclose: true})
       }
@@ -316,6 +321,7 @@
       url:'{{ url("potentials/profile-view/render") }}/'+profile_id,
       success : function (rData) {
         $('#view-profile-body').html(rData.code)
+        loadDateTime()
         $("#view-profiling-modal").modal('toggle')
       }
     })
@@ -418,6 +424,7 @@
             url:'{{ url("potentials-quotation") }}/'+id,
             success:function(rData) {
                 $("#pop-up-modal .modal-content").html(rData.code)
+                loadDateTime()
                 $("#pop-up-modal .modal-dialog").width('50%')
                 $("#pop-up-modal").modal('toggle')
                 $("#company-id-quotation").val(id)
@@ -516,6 +523,7 @@
 	            if (rData.status == 'ok') {
 	                swal(rData.msg, {icon:rData.icon})
 	                $('#tasks-td-'+rData.id).html(rData.code)
+                  loadDateTime()
     	            var div = $("#prog-perc-"+rData.id)
                     div.css('width' ,rData.perc)
                     div.text(rData.perc)
@@ -539,6 +547,7 @@
 	            if (rData.status == 'ok') {
 	                swal(rData.msg, {icon:rData.icon})
 	                $('#tasks-td-'+rData.id).html(rData.code)
+                  loadDateTime()
     	            var div = $("#prog-perc-"+rData.id)
                     div.css('width' ,rData.perc)
                     div.text(rData.perc)
@@ -582,6 +591,7 @@
 	        success:function(rData) {
 	            if (rData.status == 'ok') {
 	                $('#pop-up-modal .modal-content').html(rData.code)
+                  loadDateTime()
 	                $("#pop-up-modal .modal-dialog").width('40%')
 	                $('#pop-up-modal').modal('toggle')
 	            } else {
@@ -642,6 +652,7 @@
 	        url:'{{ url("load-potential-profiling") }}/'+id,
 	        success:function(rData) {
 	            $("#pop-up-modal .modal-content").html(rData.code)
+              loadDateTime()
 	            $("#pop-up-modal .modal-dialog").width('75%')
 	            $("#pop-up-modal").modal('toggle')
 	        }
@@ -655,6 +666,7 @@
 	        url:'{{ url("load-potential-feedback") }}/'+id,
 	        success:function(rData) {
 	            $("#pop-up-modal .modal-content").html(rData.code)
+              loadDateTime()
 	            $("#pop-up-modal .modal-dialog").width('40%')
 	            $("#pop-up-modal").modal('toggle')
 	        }

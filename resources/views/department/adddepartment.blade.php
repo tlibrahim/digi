@@ -15,6 +15,13 @@
 						<input type="text" required placeholder="Name" name="name" class="form-control">
 					</div>
 					<div class="form-group">
+						<label>Proposal</label>
+						<select required name="is_proposal" class="form-control">
+							<option value="0">Is Not Proposal</option>
+							<option value="1">Is Proposal</option>
+						</select>
+					</div>
+					<div class="form-group">
 						<button class="btn btn-primary">Save</button>
 					</div>
 				</form>

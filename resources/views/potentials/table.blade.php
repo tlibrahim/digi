@@ -33,6 +33,9 @@
                                         }
                                         if ($p->profile()->count() > 0) {
                                             $perc += 15;
+                                        }                             
+                                        if ($p->quotation()->count() > 0 && $p->proposal()->count() > 0) {
+                                            $perc += 10;
                                         }
                                         $perc = $perc.'%';
                                       @endphp
@@ -74,7 +77,7 @@
                                 @endif
 
                                 @if( (in_array('add_proposal' ,$myPermissions)) &&
-                                      (@$p->quotation || @$p->meeting()->where('type' ,'Proposal')->first()) )
+                                      ( @$p->feedbacks()->where('values' ,'like' ,'%proposal%')->first() || @$p->meeting()->where('type' ,'Proposal')->first() ) )
                                   <a class="btn btn-default" title="Add Proposal"
                                     onclick="loadPopUp({{ @$p->id }} ,'{{ url("potentials-load-pop-up/proposal/".@$p->id) }}')">
                                     <i class="fa fa-book"></i>

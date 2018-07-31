@@ -58,6 +58,15 @@
 							<input name="total" class="form-control" placeholder="Total Price" value="{{ @$quot->total }}"/>
 						</div>
 					</div>
+					<div class="form-group col-md-12">
+						<div class="col-md-12">
+							<label>With Contract</label>
+							<select name="with_contract" class="form-control">
+								<option {{ @$quot->with_contract == 0 ? 'selected' : '' }} value="0">Without Contract</option>
+								<option {{ @$quot->with_contract == 1 ? 'selected' : '' }} value="1">With Contract</option>
+							</select>
+						</div>
+					</div>
 					<div class="clearfix"></div>
 					<div class="col-md-12">
 						<div class="clearfix"></div>
