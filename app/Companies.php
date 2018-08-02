@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Companies extends Model
 {           
-    protected $fillable = ['industry_id' ,'open_to' ,'open_from' ,'coverphoto' ,'logo' ,'googleplus' ,'instagram' ,'twitter' ,'facebook' ,'website' ,'email' ,'hotline' ,'founded' ,'location_name' ,'location_credential' ,'address' ,'intro' ,'name' ,'isverified'];
+    protected $fillable = ['industry_id' ,'open_to' ,'open_from' ,'coverphoto' ,'logo' ,'googleplus' ,'instagram' ,'twitter' ,'facebook' ,'website' ,'email' ,'hotline' ,'founded' ,'location_name' ,'location_credential' ,'address' ,'intro' ,'name' ,'isverified' ,'progress'];
 
     public function industry() {
     	return $this->belongsTo('App\Industries' ,'industry_id');

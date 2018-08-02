@@ -66,6 +66,22 @@
                         </a>
                     </li>
                     @endif
+                    @if( in_array('contracts' ,$my_permissions_triggers) )
+                    <li>
+                        <a class="{{ Request::segment(1) == 'contracts' ? 'active' : '' }}"
+                            href="{{ url('contracts') }}">
+                            <i class="si si-badge"></i><span class="sidebar-mini-hide">Contracts</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if( in_array('finance' ,$my_permissions_triggers) )
+                    <li>
+                        <a class="{{ Request::segment(1) == 'finance' ? 'active' : '' }}"
+                            href="{{ url('finance') }}">
+                            <i class="si si-badge"></i><span class="sidebar-mini-hide">Finance</span>
+                        </a>
+                    </li>
+                    @endif
                     @if( in_array('users' ,$my_permissions_triggers) )
                     <li>
                         <a class="{{ Request::segment(1) == 'users' ? 'active' : '' }}"

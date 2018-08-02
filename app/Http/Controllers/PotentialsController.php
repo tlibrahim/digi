@@ -48,23 +48,28 @@ class PotentialsController extends Controller {
         return view('potentials.home' ,compact('industries' ,'myPermissions'));
     }
     
-    public function loadPotentials() {
+    public function loadPotentials($start = 15 ,$end = 45) {
         $myPermissions = UsersController::myPermissions('potential');
-        $potentials = Companies::all();
-        $feedbacks = FeedbackForms::all();
-        $industries = Industries::all();
-        $prilleges = Privlage::all();
+        $potentials = Companies::where('progress' ,'<' ,$end)->where('progress' ,'>=' ,$start)->get();
+        if ($end == 46) {
+            $n = 1;
+        } else if ($end == 86) {
+            $n = 2;
+        } else {
+            $n = 3;
+        }
+        // $feedbacks = FeedbackForms::all();
+        // $industries = Industries::all();
+        // $prilleges = Privlage::all();
 
-        $bd_id = Department::where('name' ,'Business Development')->get()->first()->id;
+        // $bd_id = Department::where('name' ,'Business Development')->get()->first()->id;
 
-        $position_ids = Positions::where('departement_id' ,$bd_id)->pluck('id')->toArray();
-        $user_ids = UserPositions::whereIn('position_id' ,$position_ids)->pluck('user_id')->toArray();
-        $users = CrmUser::whereIn('id' ,$user_ids)->get();
-        $meeting_form_id = FeedbackForms::where('name' ,'like' ,'%Meeting%')->first()->id;
+        // $position_ids = Positions::where('departement_id' ,$bd_id)->pluck('id')->toArray();
+        // $user_ids = UserPositions::whereIn('position_id' ,$position_ids)->pluck('user_id')->toArray();
+        // $users = CrmUser::whereIn('id' ,$user_ids)->get();
+        // $meeting_form_id = FeedbackForms::where('name' ,'like' ,'%Meeting%')->first()->id;
         $code = view('potentials.table' ,
-                      compact('industries' ,'potentials' ,'levels' ,'manage' ,
-                      'types' ,'techs' ,'looks' ,'content' ,'promotes' ,'feedbacks' ,
-                      'users' ,'myPermissions' ,'meeting_form_id' ,'prilleges'))->render();
+                      compact('potentials' ,'myPermissions' ,'n'))->render();
         return response(['code' => $code]);
     }
     
@@ -182,7 +187,7 @@ class PotentialsController extends Controller {
             $perc += 15;
         }
         if ($c->quotation()->count() > 0 && $c->proposal()->count() > 0) {
-            $perc += 10;
+            $perc = 100;
         }
         $perc = $perc.'%';
         return response(['msg' => 'Connection Deleted Successfully!' ,'id' => $con->company_id ,'perc' => $perc]);
@@ -347,7 +352,13 @@ class PotentialsController extends Controller {
         }
         $data['values'] = $values;
         $f = Feedbacks::create($data);
-        return response(['icon' => 'success' ,'msg' => 'Feedback Created Successfully!' ,'id' => $f->potential_id ,'code' => $this->renderCompanyTr($f->potential_id)]);
+        return response([
+            'icon' => 'success' ,
+            'msg' => 'Feedback Created Successfully!' ,
+            'id' => $f->potential_id ,
+            'perc' => $this->calcPerc($f->potential_id) ,
+            'code' => $this->renderCompanyTr($f->potential_id)
+        ]);
     }
 
     public function assignUser($pot_id) {
@@ -371,11 +382,11 @@ class PotentialsController extends Controller {
             foreach($users as $u) {
                 dispatch(new SendVerificationEmail($u));
             }
-            return response(['msg' => 'Company Verified Successfully!', 'icon' => 'success']);
+            return response(['msg' => 'Company "'.$com->name.'" Verified Successfully!', 'icon' => 'success']);
         } else {
             $com->isverified = 0;
             $com->save();
-            return response(['msg' => 'Company Unverified!', 'icon' => 'error']);
+            return response(['msg' => 'Company "'.$com->name.'" Unverified!', 'icon' => 'error']);
         }
     }
     
@@ -396,27 +407,64 @@ class PotentialsController extends Controller {
                 }
             }
             $services = request('services');
+            $services_code = '';
             foreach($services as $k => $s) {
                 if ( $s != 'Select Service' ) {
-                    QuotationServices::create(['quotation_id' => $quot->id, 'service_id' => $s, 'quantity' => request('quantites')[$k]?:0 ]);
+                    $ser = QuotationServices::create(['quotation_id' => $quot->id, 'service_id' => $s, 'quantity' => request('quantites')[$k]?:0 ]);
+                    $services_code .= '<span class="label label-success" style="margin:2px">('. @$ser->quantity .') '.@$ser->service->name .'</span>';
                 }
             }
-            return response(['status' => 'ok' ,'msg' => 'Quotation Updated Successfully!' ,'icon' => 'success' ,'perc' => $this->calcPerc(request('company_id')) ,'id' => request('company_id')]);
+            return response([
+                'status' => 'ok' ,
+                'msg' => 'Quotation Updated Successfully!' ,
+                'icon' => 'success' ,
+                'perc' => $this->calcPerc(request('company_id')) ,
+                'id' => request('company_id') ,
+                'quot_id' => $quot->id ,
+                'is_collected' => $quot->is_collected ,
+                'services' => $services_code ,
+                'total' => $quot->total ,
+                'disc' => $quot->total_offer ,
+                'total_disc' => $quot->total_offer > 0 ? $quot->total - ($quot->total * $quot->total_offer)/100 : $quot->total ,
+                'collect_date' => $quot->collect_date
+            ]);
         } else {
             $quot = Quotation::create(request()->all());
             $services = request('services');
+            $services_code = '';
             foreach($services as $k => $s) {
                 if ( $s != 'Select Service' ) {
-                    QuotationServices::create(['quotation_id' => $quot->id, 'service_id' => $s, 'quantity' => request('quantites')[$k]?:0 ]);
+                    $ser = QuotationServices::create(['quotation_id' => $quot->id, 'service_id' => $s, 'quantity' => request('quantites')[$k]?:0 ]);
+                    $services_code .= '<span class="label label-success" style="margin:2px">('. @$ser->quantity .') '.@$ser->service->name .'</span>';
                 }
             }
-            return response(['status' => 'ok' ,'msg' => 'Quotation Created Successfully!' ,'icon' => 'success' ,'perc' => $this->calcPerc(request('company_id')) ,'id' => request('company_id')]);
+            return response([
+                'status' => 'ok' ,
+                'msg' => 'Quotation Created Successfully!' ,
+                'icon' => 'success' ,
+                'perc' => $this->calcPerc(request('company_id')) ,
+                'id' => request('company_id') ,
+                'quot_id' => $quot->id ,
+                'is_collected' => $quot->is_collected ,
+                'services' => $services_code ,
+                'total' => $quot->total ,
+                'disc' => $quot->total_offer ,
+                'total_disc' => $quot->total_offer > 0 ? $quot->total - ($quot->total * $quot->total_offer)/100 : $quot->total ,
+                'collect_date' => $quot->collect_date
+            ]);
         }
     }
     
     public function delQuotSer($ser_id) {
-        QuotationServices::find($ser_id)->delete();
-        return response(['status' => 'ok' ,'msg' => 'Service Deleted Successfully!' ,'icon' => 'success']);
+        $ser = QuotationServices::find($ser_id);
+        $ser->delete();
+        $services = '';
+        $q = $ser->quotation;
+        foreach(@$q->services as $s) {
+            $services .= '<span class="label label-success" style="margin:2px">('. @$s->quantity .') '.@$s->service->name .'</span>';
+        }
+        
+        return response(['status' => 'ok' ,'msg' => 'Service Deleted Successfully!' ,'icon' => 'success' ,'quot_id' => $ser->quotation_id ,'services' => $services]);
     }
     
     public function addMeetingFeedback() {
@@ -521,9 +569,11 @@ class PotentialsController extends Controller {
             $perc += 15;
         }
         if ($c->quotation()->count() > 0 && $c->proposal()->count() > 0) {
-            $perc += 10;
+            $perc = 100;
         }
-        return $perc.'%';
+        $c->progress = $perc;
+        $c->save();
+        return $c->progress.'%';
     }
     
     public function loadPopUp($key ,$com_id) {

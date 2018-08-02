@@ -3,26 +3,7 @@
                               <td>
                                   <div class="progress-bar-parent">
                                       @php
-                                        $perc = 15;
-                                        if ($p->connections()->count() > 0) {
-                                            $perc += 15;
-                                        }
-                                        if ($p->feedbacks()->count() > 0) {
-                                            $perc += 15;
-                                        }
-                                        if ($p->quotation()->count() > 0) {
-                                            $perc += 15;
-                                        }
-                                        if ($p->proposal()->count() > 0) {
-                                            $perc += 15;
-                                        }
-                                        if ($p->profile()->count() > 0) {
-                                            $perc += 15;
-                                        }
-                                        if ($p->quotation()->count() > 0 && $p->proposal()->count() > 0) {
-                                            $perc += 10;
-                                        }
-                                        $perc = $perc.'%';
+                                        $perc = @$p->progress.'%';
                                       @endphp
                                     <div class="progress-bar-child" id="prog-perc-{{@$p->id}}" style="width:{{ $perc }}">{{ $perc }}</div>
                                   </div>

@@ -117,7 +117,7 @@ Route::middleware(['auth'])->group(function() {
 	Route::post('potentials-add-meeting-feedback' ,'PotentialsController@addMeetingFeedback');
 	Route::post('potentials-add-proposal' ,'PotentialsController@addProposal');
 	Route::get('potentials-load-pop-up/{key}/{comp_id}', 'PotentialsController@loadPopUp');
-	Route::get('load-potentials', 'PotentialsController@loadPotentials');
+	Route::get('load-potentials/{start_perc?}/{end_perc?}', 'PotentialsController@loadPotentials');
 	Route::get('load-potential-profiling/{com_id}', 'PotentialsController@loadPotentialProfiling');
 	Route::get('load-potential-feedback/{com_id}', 'PotentialsController@loadPotentialFeedback');
 
@@ -140,7 +140,21 @@ Route::middleware(['auth'])->group(function() {
 	Route::post('plans/edit/{id}' ,'PlansController@edit');
 	Route::get('plans/delete/{id}' ,'PlansController@delete');
 	Route::get('plans-delete-service/{id}' ,'PlansController@deleteService');
-	
+
+	Route::get('contracts' ,'ContractsController@index');
+	Route::post('add-contract' ,'ContractsController@add');
+	Route::post('edit-contract/{id}' ,'ContractsController@edit');
+	Route::get('contracts-load-edit-pop-up/{id}' ,'ContractsController@loadEdit');
+	Route::get('contracts-load-add-pop-up/{quotation_id}' ,'ContractsController@loadAdd');
+	Route::get('contracts-sign/{cont_id}' ,'ContractsController@signContract');
+	Route::get('contracts-signed' ,'ContractsController@loadSignedContracts');
+	Route::get('contracts-quot' ,'ContractsController@loadContractsQuot');
+
+	Route::get('finance' ,'FinanceController@index');
+	Route::get('finance-quots/{key}' ,'FinanceController@loadQuots');
+	Route::get('finance-quotation/{com_id}' ,'FinanceController@quotation');
+	Route::get('finance-collect/{com_id}' ,'FinanceController@viewQuot');
+
 });
 
 
