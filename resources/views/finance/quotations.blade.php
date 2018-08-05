@@ -1,4 +1,4 @@
-						<table class="table table-striped">
+						<table class="table table-striped dTable">
                           <thead>
                               <tr>
                                   <th class="text-center">ID</th>
@@ -31,14 +31,14 @@
                                             <td>
                                               @if( $collect )
                                               	@if ($key == 'quotation')
-	                                              <button class="btn btn-default pull-left" title="Edit Contract" id="btn-quot-{{ @$q->id }}"
+	                                              <button class="btn btn-default pull-left" title="Edit Quotation" id="btn-quot-{{ @$q->id }}"
 	                                                {{ @$q->is_collected == 1 ? 'disabled' : '' }}
 	                                                onclick="loadQuot('{{ url('finance-'.$key.'/'.@$q->company->id) }}')">
 	                                                <i class="si si-pencil"></i>
 	                                              </button>
 	                                            @endif
-	                                            <button class="btn btn-default pull-left" title="View Contract"
-	                                                onclick="loadQuot('{{ url('finance-collect/'.@$q->company->id) }}')">
+	                                            <button class="btn btn-default pull-left" title="View Quotation"
+	                                                onclick="loadQuot('{{ url('finance-collect/'.@$q->id) }}')">
 	                                                <i class="si si-eye"></i>
 	                                            </button>
                                               @endif

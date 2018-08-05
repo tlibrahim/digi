@@ -177,7 +177,7 @@ class PotentialsController extends Controller {
         if ($c->feedbacks()->count() > 0) {
             $perc += 15;
         }
-        if ($c->quotation()->count() > 0) {
+        if ($c->quotations()->count() > 0) {
             $perc += 15;
         }
         if ($c->proposal()->count() > 0) {
@@ -186,7 +186,7 @@ class PotentialsController extends Controller {
         if ($c->profile()->count() > 0) {
             $perc += 15;
         }
-        if ($c->quotation()->count() > 0 && $c->proposal()->count() > 0) {
+        if ($c->quotations()->count() > 0 && $c->proposal()->count() > 0) {
             $perc = 100;
         }
         $perc = $perc.'%';
@@ -391,7 +391,7 @@ class PotentialsController extends Controller {
     }
     
     public function getQuotation($com_id) {
-        $quot = Companies::find($com_id)->quotation;
+        $quot = Companies::find($com_id)->quotations()->where('is_collected' ,0)->first();
         $services = Services::all();
         $code = view('potentials.quotation.quotation' ,compact('services' ,'quot'))->render();
         return response(['code' => $code]);
@@ -559,7 +559,7 @@ class PotentialsController extends Controller {
         if ($c->feedbacks()->count() > 0) {
             $perc += 15;
         }
-        if ($c->quotation()->count() > 0) {
+        if ($c->quotations()->count() > 0) {
             $perc += 15;
         }
         if ($c->proposal()->count() > 0) {
@@ -568,7 +568,7 @@ class PotentialsController extends Controller {
         if ($c->profile()->count() > 0) {
             $perc += 15;
         }
-        if ($c->quotation()->count() > 0 && $c->proposal()->count() > 0) {
+        if ($c->quotations()->count() > 0 && $c->proposal()->count() > 0) {
             $perc = 100;
         }
         $c->progress = $perc;
@@ -601,6 +601,10 @@ class PotentialsController extends Controller {
             case 'edit-potential':
                 $industries = Industries::all();
                 return response(['status' => 'ok' ,'code' => view('potentials.pop-up.edit-potential' ,compact('p' ,'industries'))->render()]);
+                break;
+            case 'quotations':
+                $quotations = $p->quotations;
+                return response(['status' => 'ok' ,'code' => view('potentials.quotation.quotations' ,compact('quotations'))->render()]);
                 break;
         }
     }

@@ -47,7 +47,7 @@ function loadQuots() {
 		success:function(rData){
 			console.log(rData)
 			$('#tab01').html(rData.code)
-			dTables = $('table').DataTable()
+			dTables = $('.dTable').DataTable()
 		}
 	})
 }
@@ -60,7 +60,7 @@ function loadCollectedQuots() {
 		success:function(rData){
 			console.log(rData)
 			$('#tab02').html(rData.code)
-			dTables = $('table').DataTable()
+			dTables = $('.dTable').DataTable()
 		}
 	})
 }

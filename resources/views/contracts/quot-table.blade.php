@@ -9,40 +9,40 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                @if(count($companies) > 0)
-                                  @foreach($companies as $p)
+                                @if(count($quots) > 0)
+                                  @foreach($quots as $quot)
                                     @php
-                                      if (@$p->quotation->contract) {
-                                        if (@$p->quotation->contract->is_signed == 1) {
+                                      if (@$quot->contract) {
+                                        if (@$quot->contract->is_signed == 1) {
                                           continue;
                                         }
                                       }
                                     @endphp
-                                  <tr id="company-{{ @$p->id }}">
-                                    <td class="text-center">{{ @$p->id }}</td>
-                                    <td>{{ @$p->name }}</td>
-                                    <td>{{ @$p->quotation->total }}</td>
+                                  <tr id="company-{{ @$quot->company->id }}">
+                                    <td class="text-center">{{ @$quot->company->id }}</td>
+                                    <td>{{ @$quot->company->name }}</td>
+                                    <td>{{ @$quot->total }}</td>
                                     <td>
-                                      @foreach(@$p->quotation->services as $s)
-                                        <span class="label label-success">({{ @$s->quantity }}) {{ @$s->service->name }}</span>
-                                      @endforeach
+                                        @foreach(@$quot->services as $s)
+                                          <span class="label label-success">({{ @$s->quantity }}) {{ @$s->service->name }}</span>
+                                        @endforeach
                                     </td>
                                     <td>
-                                      @if( in_array('add_contract' ,$myPermissions) && !@$p->quotation->contract )
+                                      @if( in_array('add_contract' ,$myPermissions) && !@$quot->contract )
                                         <a class="btn btn-default pull-left" title="Add Contract" style="margin-left: 5px"
-                                          onclick="loadEdit('{{ url("contracts-load-add-pop-up/".@$p->quotation->id) }}')">
+                                          onclick="loadEdit('{{ url("contracts-load-add-pop-up/".@$quot->id) }}')">
                                           <i class="si si-plus"></i>
                                         </a>
                                       @endif
-                                      @if( in_array('edit_contract' ,$myPermissions) && @$p->quotation->contract )
+                                      @if( in_array('edit_contract' ,$myPermissions) && @$quot->contract )
                                         <a class="btn btn-default pull-left" title="Edit Contract" style="margin-left: 5px" 
-                                          onclick="loadEdit('{{ url("contracts-load-edit-pop-up/".@$p->quotation->contract->id) }}')">
+                                          onclick="loadEdit('{{ url("contracts-load-edit-pop-up/".@$quot->contract->id) }}')">
                                           <i class="si si-pencil"></i>
                                         </a>
                                       @endif
-                                      @if( (in_array('add_contract' ,$myPermissions) || in_array('edit_contract' ,$myPermissions)) && @$p->quotation->contract )
+                                      @if( (in_array('add_contract' ,$myPermissions) || in_array('edit_contract' ,$myPermissions)) && @$quot->contract )
                                         <a class="btn btn-default pull-left" title="Sign Contract" style="margin-left: 5px" 
-                                          onclick="signContract({{ @$p->quotation->contract->id }} ,'company-{{ @$p->id }}')">
+                                          onclick="signContract({{ @$quot->contract->id }} ,'company-{{ @$quot->company->id }}')">
                                           <i class="si si-check"></i>
                                         </a>
                                       @endif

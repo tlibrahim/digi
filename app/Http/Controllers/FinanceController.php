@@ -15,14 +15,14 @@ class FinanceController extends Controller
     }
 
     public function quotation($com_id) {
-    	$quot = Companies::find($com_id)->quotation;
+    	$quot = Companies::find($com_id)->quotations()->where('is_collected' ,0)->first();
         $services = Services::all();
         $code = view('finance.pop-up.quot' ,compact('services' ,'quot'))->render();
         return response(['code' => $code]);
     }
 
-    public function viewQuot($com_id) {
-    	$quot = Companies::find($com_id)->quotation;
+    public function viewQuot($quot_id) {
+    	$quot = Quotation::find($quot_id);
         $code = view('finance.pop-up.view-quot' ,compact('quot'))->render();
         return response(['code' => $code]);
     }

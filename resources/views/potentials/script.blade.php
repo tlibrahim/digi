@@ -588,3 +588,6 @@
       }
   }
 
+  function QuotationHistory(company_id) {
+    
+  }

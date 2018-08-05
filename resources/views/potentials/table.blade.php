@@ -93,6 +93,13 @@
                                       onclick="loadPopUp({{ @$p->id }} ,'{{ url("potentials-load-pop-up/connections/".@$p->id) }}')">
                                     <i class="fa fa-link"></i>
                                   </a>
+                                  
+                                  @if(@$p->quotations()->count() > 0)
+                                  <a class="btn btn-default" title="Quotations History"
+                                    onclick="loadPopUp({{ @$p->id }} ,'{{ url("potentials-load-pop-up/quotations/".@$p->id) }}')">
+                                    <i class="si si-docs"></i>
+                                  </a>
+                                  @endif
 
                                   @if( in_array('edit_potential' ,$myPermissions) )
                                     <a class="btn btn-default pull-left" title="Edit"
