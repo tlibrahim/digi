@@ -26,6 +26,12 @@
                             <i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="{{ Request::segment(1) == 'task-manager' ? 'active' : '' }}"
+                            href="{{ url('/task-manager') }}">
+                            <i class="si si-speedometer"></i><span class="sidebar-mini-hide">Task Manager</span>
+                        </a>
+                    </li>
                     @if( in_array('departement' ,$my_permissions_triggers) )
                     <li>
                         <a class="{{ Request::segment(1) == 'departements' ? 'active' : '' }}"

@@ -132,7 +132,7 @@ class TasksController extends Controller
             }
 
             $inputs = request('inputnames');
-            if(count($inputs) > 0){
+            if($inputs){
                 foreach($inputs as $key => $value) {
                     try{
                         TaskInputs::create(['task_id' => $task->id, 'input_name_id' => $value, 'input_title' => request('inputs')[$key]]);

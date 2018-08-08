@@ -45,7 +45,6 @@ function loadQuots() {
 		type:'GET',
 		url:'{{ url("finance-quots/quotation") }}',
 		success:function(rData){
-			console.log(rData)
 			$('#tab01').html(rData.code)
 			dTables = $('.dTable').DataTable()
 		}
@@ -58,7 +57,6 @@ function loadCollectedQuots() {
 		type:'GET',
 		url:'{{ url("finance-quots/collect") }}',
 		success:function(rData){
-			console.log(rData)
 			$('#tab02').html(rData.code)
 			dTables = $('.dTable').DataTable()
 		}

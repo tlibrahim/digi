@@ -23,17 +23,11 @@ class ServiceController extends Controller
         if ( \App\Http\Controllers\UsersController::myPermitedTrigger('services' ,'add') == 0 ) {
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
-		$tasks = Tasks::all();
-		return view('services.add' ,compact('tasks'));
+		return view('services.add');
 	}
 
 	public function addPost() {
-		$service = Services::create(request()->all());
-		if (request()->has('tasks')) {
-			foreach(request('tasks') as $t) {
-				ServiceTasks::create(['task_id' => $t, 'service_id' => $service->id]);
-			}
-		}
+		Services::create(request()->all());
 		return redirect('services')->with('status' ,'Service Created Successfully!');
 	}
 
@@ -43,8 +37,7 @@ class ServiceController extends Controller
         }
 		try {
 			$service = Services::findOrFail($id);
-			$tasks = Tasks::all();
-			return view('services.edit' ,compact('service' ,'tasks'));
+			return view('services.edit' ,compact('service'));
 		} catch (Exception $e) {
 			return back()->with('error' ,'Service Not Found');
 		}
@@ -54,16 +47,6 @@ class ServiceController extends Controller
 		try {
 			$service = Services::findOrFail($id);
 			$service->update(request()->all());
-			if ($service->tasks) {
-				foreach($service->tasks as $t) {
-					$t->delete();
-				}
-			}
-			if (request()->has('tasks')) {
-				foreach(request('tasks') as $t) {
-					ServiceTasks::create(['task_id' => $t, 'service_id' => $service->id]);
-				}
-			}
 			return back()->with('status' ,'Service Updated Successfully!');
 		} catch (Exception $e) {
 			return back()->with('error' ,'Service Not Found');
@@ -75,20 +58,9 @@ class ServiceController extends Controller
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
 		try {
-			$service = Services::findOrFail($id);
+			Services::findOrFail($id)->delete();
 		} catch (Exception $e) {
 			return back()->with('error' ,'Service Not Found');
-		}
-		try {
-			if ($service->tasks) {
-				foreach($service->tasks as $t) {
-					$t->delete();
-				}
-			}
-			$service->delete();
-			return redirect('services')->with('status' ,'Service Deleted Successfully!');
-		} catch (Exception $e) {
-			return back()->with('error' ,'Can`t delete this service ,it`s related to other data');
 		}
 	}
 }

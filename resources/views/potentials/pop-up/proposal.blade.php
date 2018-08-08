@@ -8,13 +8,14 @@
       		<form method="post" action="{{ url('potentials-add-proposal') }}" onsubmit="postProposal(event);return false">
 	      		<div class="modal-body">
 					    @csrf
-					    <input type="hidden" name="company_id" value="{{ @$p->id }}"/>
-					    <input type="hidden" name="proposal_id" value="{{ @$p->proposal->id }}"/>
+              <input type="hidden" name="company_id" value="{{ @$p->id }}"/>
+					    <input type="hidden" name="quotation_id" value="{{ @$quot->id }}"/>
+					    <input type="hidden" name="proposal_id" value="{{ @$quot->proposal->id }}"/>
               <div class="form-group" style="width:100%">
                 <label>Type</label>
                 <select style="width:100%" class="form-control" name="departement_id">
                   @foreach($departments as $d)
-                  <option {{ @$p->proposal->departement_id == @$d->id ? 'selected' : '' }} value="{{ @$d->id }}">{{ @$d->name }}</option>
+                  <option {{ @$quot->proposal->departement_id == @$d->id ? 'selected' : '' }} value="{{ @$d->id }}">{{ @$d->name }}</option>
                   @endforeach
                 </select>
               </div>

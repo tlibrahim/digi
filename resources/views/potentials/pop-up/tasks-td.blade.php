@@ -24,8 +24,7 @@
                                   </a>
                                 @endif
 
-                                @if( (in_array('add_proposal' ,$myPermissions)) &&
-                                      ( @$p->feedbacks()->where('values' ,'like' ,'%proposal%')->first() || @$p->meeting()->where('type' ,'Proposal')->first() ) )
+                                @if( in_array('add_proposal' ,$myPermissions) && $p->quotations()->where('is_collected' ,0)->first() )
                                   <a class="btn btn-default" title="Add Proposal"
                                     onclick="loadPopUp({{ @$p->id }} ,'{{ url("potentials-load-pop-up/proposal/".@$p->id) }}')">
                                     <i class="fa fa-book"></i>

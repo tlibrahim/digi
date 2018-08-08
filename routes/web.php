@@ -128,10 +128,12 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('customers/moderator/{id}' ,'CustomersController@moderator');
 
 	Route::get('task-assign' ,'TaskAssignController@index');
-	Route::get('task-assign-loaders/{key}/{id?}' ,'TaskAssignController@renderLoaders');
-	Route::post('task-assign/add' ,'TaskAssignController@add');
-	Route::post('task-assign/edit/{id}' ,'TaskAssignController@edit');
-	Route::get('task-assign/delete/{id}' ,'TaskAssignController@delete');
+	// Route::get('task-assign-loaders/{key}/{id?}' ,'TaskAssignController@renderLoaders');
+	// Route::post('task-assign/add' ,'TaskAssignController@add');
+	// Route::post('task-assign/edit/{id}' ,'TaskAssignController@edit');
+	// Route::get('task-assign/delete/{id}' ,'TaskAssignController@delete');
+	Route::get('task-assign/quotations/{quot_id}' ,'TaskAssignController@quotation');
+	Route::post('task-assign/quotations/{quot_id}' ,'TaskAssignController@postQuotation');
 
 	Route::get('plans' ,'PlansController@index');
 	Route::get('plans-render' ,'PlansController@renderService');
@@ -154,6 +156,8 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('finance-quots/{key}' ,'FinanceController@loadQuots');
 	Route::get('finance-quotation/{com_id}' ,'FinanceController@quotation');
 	Route::get('finance-collect/{com_id}' ,'FinanceController@viewQuot');
+
+	Route::get('task-manager' ,'TaskManagerController@index');
 
 });
 

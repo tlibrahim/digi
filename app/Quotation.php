@@ -19,4 +19,12 @@ class Quotation extends Model
     public function contract() {
     	return $this->hasOne('App\Contracts' ,'quotation_id');
     }
+    
+    public function proposal() {
+        return $this->hasOne('App\Proposal' ,'quotation_id');
+    }
+
+    public function tasks_assign() {
+        return $this->hasMany('App\TaskAssign' ,'quotation_id');
+    }
 }

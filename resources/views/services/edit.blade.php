@@ -24,16 +24,6 @@
 						<input type="text" value="{{ $service->name }}" required placeholder="Name" name="name" class="form-control">
 					</div>
 					<div class="form-group">
-						<label>Tasks</label>
-						<select name="tasks[]" class="form-control select2" multiple="multiple" data-placeholder="Select Task(s)">
-							<option value="0">Select One</option>
-							@foreach($tasks as $p)
-							<option {{ in_array(@$p->id ,$service->tasks()->pluck('task_id')->toArray()) ? 'selected' : '' }}
-									value="{{ @$p->id }}">{{ @$p->name }}</option>
-							@endforeach
-						</select>
-					</div>
-					<div class="form-group">
 						<button class="btn btn-primary">Save</button>
 					</div>
 				</form>

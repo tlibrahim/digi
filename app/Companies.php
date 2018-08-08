@@ -67,8 +67,4 @@ class Companies extends Model
     public function quotations() {
         return $this->hasMany('App\Quotation' ,'company_id');
     }
-    
-    public function proposal() {
-        return $this->hasOne('App\Proposal' ,'company_id');
-    }
 }

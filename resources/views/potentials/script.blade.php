@@ -425,7 +425,6 @@
                   div.text(rData.perc)
                   var progress = parseInt(rData.perc)
                   changeRowPlace(progress ,rData.id)
-                  $('.modal-backdrop').remove()
 	            } else {
 	                swal(rData.msg, {icon:rData.icon})
 	            }
@@ -540,9 +539,7 @@
                         div.css('width' ,rData.perc)
                         div.text(rData.perc)
                         var progress = parseInt(rData.perc)
-                        
-                        $('body').removeClass('modal-open')
-                        $('.modal-backdrop').remove()
+                        changeRowPlace(progress ,rData.id)
                         $('#potentials-'+rData.id).html(rData.code)
     	            }
     	            loadDateTime()
@@ -583,11 +580,12 @@
   function changeRowPlace(progress ,id) {
       if (progress >= 46 && progress < 86) {
           dTables.row('#potentials-'+id).remove().draw(false)
-      } else if (progress >= 85) {
+      } else if (progress >= 85 && progress < 100) {
+          dTables.row('#potentials-'+id).remove().draw(false)
+      } else if ( progress == 100 && $('#tab-button .is-active:first').find('a').attr('href') != '#tab03' ) {
           dTables.row('#potentials-'+id).remove().draw(false)
       }
+      $('.close').click()
+      $('.close').click()
   }
-
-  function QuotationHistory(company_id) {
-    
-  }
+  

@@ -177,16 +177,10 @@ class PotentialsController extends Controller {
         if ($c->feedbacks()->count() > 0) {
             $perc += 15;
         }
-        if ($c->quotations()->count() > 0) {
-            $perc += 15;
-        }
-        if ($c->proposal()->count() > 0) {
-            $perc += 15;
-        }
         if ($c->profile()->count() > 0) {
             $perc += 15;
         }
-        if ($c->quotations()->count() > 0 && $c->proposal()->count() > 0) {
+        if ($c->quotations()->count() > 0) {
             $perc = 100;
         }
         $perc = $perc.'%';
@@ -501,9 +495,9 @@ class PotentialsController extends Controller {
                 'status' => 'ok',
                 'msg' => 'Proposal '.$key.' Successfully!',
                 'icon' => 'success',
-                'id' => $prop->company_id,
-                'perc' => $this->calcPerc($prop->company_id),
-                'code' => $this->renderTasksTd($prop->company_id)
+                'id' => request('company_id'),
+                'perc' => $this->calcPerc(request('company_id')),
+                'code' => $this->renderTasksTd(request('company_id'))
             ];
         return response($response);
     }
@@ -559,16 +553,10 @@ class PotentialsController extends Controller {
         if ($c->feedbacks()->count() > 0) {
             $perc += 15;
         }
-        if ($c->quotations()->count() > 0) {
-            $perc += 15;
-        }
-        if ($c->proposal()->count() > 0) {
-            $perc += 15;
-        }
         if ($c->profile()->count() > 0) {
             $perc += 15;
         }
-        if ($c->quotations()->count() > 0 && $c->proposal()->count() > 0) {
+        if ($c->quotations()->count() > 0 ) {
             $perc = 100;
         }
         $c->progress = $perc;
@@ -592,8 +580,9 @@ class PotentialsController extends Controller {
                 return response(['status' => 'ok' ,'code' => view('potentials.pop-up.connections.connection' ,compact('p' ,'prilleges'))->render()]);
                 break;
             case 'proposal':
+                $quot = $p->quotations()->where('is_collected' ,0)->first();
                 $departments = Department::where('is_proposal' ,1)->get();
-                return response(['status' => 'ok' ,'code' => view('potentials.pop-up.proposal' ,compact('p' ,'departments'))->render()]);
+                return response(['status' => 'ok' ,'code' => view('potentials.pop-up.proposal' ,compact('p' ,'departments' ,'quot'))->render()]);
                 break;
             case 'meeting-feedback':
                 return response(['status' => 'ok' ,'code' => view('potentials.pop-up.meeting-feedback' ,compact('p'))->render()]);

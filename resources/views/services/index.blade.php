@@ -40,7 +40,7 @@
 		                		<td>{{ @$p->name }}</td>
 		                		<td>
 		                			@foreach(@$p->tasks as $t)
-		                			<span class="label label-success">{{ @$t->task->name }}</span>
+		                			<span class="label label-success">{{ @$t->name }}</span>
 		                			@endforeach
 		                		</td>
 		                		{{-- <td>
