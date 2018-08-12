@@ -158,6 +158,11 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('finance-collect/{com_id}' ,'FinanceController@viewQuot');
 
 	Route::get('task-manager' ,'TaskManagerController@index');
+	Route::get('task-manager-load/{id}/{assign_id}' ,'TaskManagerController@loadTask');
+	Route::post('task-manager-execute/{id}/{assign_id}' ,'TaskManagerController@executeTask');
+	Route::get('task-manager-history/{id}/{assign_id}' ,'TaskManagerController@taskHistory');
+	Route::get('task-manager-confirm/{assign_id}' ,'TaskManagerController@taskConfirm');
+	Route::get('task-manager-gallery/{assign_id}' ,'TaskManagerController@taskGallery');
 
 });
 
