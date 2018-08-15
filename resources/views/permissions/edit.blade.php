@@ -22,14 +22,14 @@
 						<label>Name</label>
 						<input type="text" required placeholder="Name" value="{{ $permission->name }}" name="name" class="form-control">
 					</div>
-					<div class="form-group">
+					{{-- <div class="form-group">
 						<label>Trigger</label>
 						<input type="text" required placeholder="Trigger" value="{{ $permission->trigger }}" name="trigger" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Trigger Category</label>
 						<input type="text" required placeholder="Trigger Category" value="{{ $permission->trigger_category }}" name="trigger_category" class="form-control">
-					</div>
+					</div> --}}
 					<div class="form-group">
 						<label>Position</label>
 						<select required name="positions[]" multiple class="form-control select2">

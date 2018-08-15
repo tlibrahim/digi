@@ -120,6 +120,14 @@
                         </a>
                     </li>
                     @endif
+                    @if( in_array('task_approve' ,$my_permissions_triggers) )
+                    <li>
+                        <a class="{{ Request::segment(1) == 'tasks-approve' ? 'active' : '' }}"
+                            href="{{ url('tasks-approve') }}">
+                            <i class="si si-badge"></i><span class="sidebar-mini-hide">Tasks Approve</span>
+                        </a>
+                    </li>
+                    @endif
                     @if( in_array('services' ,$my_permissions_triggers) )
                     <li>
                         <a class="{{ Request::segment(1) == 'services' ? 'active' : '' }}"

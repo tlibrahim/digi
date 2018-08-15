@@ -8,9 +8,9 @@
 		<div class="row items-push">
 			<div class="col-md-10 col-md-offset-1">
 				<div class="row">
-                    @if ( \App\Http\Controllers\UsersController::myPermitedTrigger('permissions' ,'add') == 1 )
+                    {{-- @if ( \App\Http\Controllers\UsersController::myPermitedTrigger('permissions' ,'add') == 1 )
 					<a class="pull-right btn btn-info" href="{{ url('permissions/create') }}" style="margin-bottom: 15px">Add Permission</a>
-					@endif
+					@endif --}}
 				</div>
 				<div class="row">
 		            @if(session()->has('status'))
@@ -49,13 +49,13 @@
                                     @if ( \App\Http\Controllers\UsersController::myPermitedTrigger('permissions' ,'edit') == 1 )
 							        <a href="{{ url('permissions/'.@$d->id.'/edit') }}" class="btn btn-info pull-left">Edit</a>
 							        @endif
-                                    @if ( \App\Http\Controllers\UsersController::myPermitedTrigger('permissions' ,'delete') == 1 )
+                                    {{-- @if ( \App\Http\Controllers\UsersController::myPermitedTrigger('permissions' ,'delete') == 1 )
 							        <form id="delete-form-{{ @$d->id }}" method="post" action="{{ url('permissions/'.@$d->id) }}" class="pull-left" style="margin-left: 5px">
 							        	@csrf
 										<input name="_method" type="hidden" value="DELETE">
 										<button type="button" onclick="deletePerm({{ @$d->id }})" class="btn btn-danger">Delete</button>
 							        </form>
-							        @endif
+							        @endif --}}
 		                		</td>
 		                	</tr>
 		                	@endforeach

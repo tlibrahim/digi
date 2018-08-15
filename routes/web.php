@@ -158,11 +158,18 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('finance-collect/{com_id}' ,'FinanceController@viewQuot');
 
 	Route::get('task-manager' ,'TaskManagerController@index');
+	Route::get('task-manager-load-tasks/{v}' ,'TaskManagerController@loadTasks');
 	Route::get('task-manager-load/{id}/{assign_id}' ,'TaskManagerController@loadTask');
 	Route::post('task-manager-execute/{id}/{assign_id}' ,'TaskManagerController@executeTask');
-	Route::get('task-manager-history/{id}/{assign_id}' ,'TaskManagerController@taskHistory');
+	Route::get('task-manager-history/{assign_id}' ,'TaskManagerController@taskHistory');
 	Route::get('task-manager-confirm/{assign_id}' ,'TaskManagerController@taskConfirm');
-	Route::get('task-manager-gallery/{assign_id}' ,'TaskManagerController@taskGallery');
+	Route::get('task-manager-gallery/{assign_id}/{with_del?}' ,'TaskManagerController@taskGallery');
+	Route::post('task-manager-delete-file' ,'TaskManagerController@deleteFile');
+
+	Route::get('tasks-approve' ,'TasksApproveController@index');
+	Route::get('tasks-approve-load-tasks/{quot_id}' ,'TasksApproveController@loadQuotTasks');
+	Route::get('task-approve-load-quots/{v}' ,'TasksApproveController@loadQuots');
+	Route::get('task-approve-confirm/{assign_id}' ,'TasksApproveController@taskAssignApprove');
 
 });
 

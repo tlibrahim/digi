@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('styles')
-@include('task-manager.style')
+@include('task-approve.style')
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
         <div class="row items-push">
           <div class="col-sm-7">
             <h1 class="page-heading">
-              My Tasks
+              Quotations Tasks Completed
             </h1>
           </div>
         </div>
@@ -36,14 +36,14 @@
 	            	<div class="tabs">
                         <div class="tab-button-outer">
                             <ul id="tab-button">
-                              	<li><a href="#tab01">In Progress Tasks</a></li>
-                              	<li><a href="#tab02">Completed Tasks</a></li>
+                              	<li><a href="#tab01">In Progress Quotations</a></li>
+                              	<li><a href="#tab02">Completed Quotations</a></li>
                             </ul>
                         </div>
                         <div class="tab-select-outer">
                             <select id="tab-select">
-                              	<option value="#tab01">In Progress Tasks</option>
-                              	<option value="#tab02">Completed Tasks</option>
+                              	<option value="#tab01">In Progress Quotations</option>
+                              	<option value="#tab02">Completed Quotations</option>
                             </select>
                         </div>
 
@@ -71,6 +71,7 @@
 @endsection
 
 @section('scripts')
-@include('task-manager.script')
+@include('task-approve.script')
 @endsection
+
 
