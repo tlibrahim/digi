@@ -10,45 +10,62 @@
 				$gallery = @$task->executions()->where(function($q){$q->where('type' ,'file')->orWhere('type' ,'array');})->get();
 			@endphp
 			@if ( count($executions) > 0 )
-				<div class="col-md-12">	
-					<h3>{{ @$task->task->name }}</h3>
-					<table class="table table-striped table-bordered">
-						<thead>
-							<tr>
-								<td width="50%"><h4>Task Input</h4></td>
-								<td width="50%"><h4>Task Value</h4></td>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($executions as $exec)
+				<div id="task-container-{{ @$task->id }}">
+					<div class="col-md-12">	
+						<h3>{{ @$task->task->name }} <span>@if(@$task->is_done == 1 && @$task->is_approved == 1) (Status :'APPROVED') @endif</span></h3>
+						<table class="table table-striped table-bordered">
+							<thead>
 								<tr>
-									<td style="font-weight: bold">{{ str_replace('_' ,' ' ,@$exec->input) }}</td>
-									<td>{{ @$exec->value }}</td>
+									<td width="50%"><h4>Task Input</h4></td>
+									<td width="50%"><h4>Task Value</h4></td>
 								</tr>
-							@endforeach
-						</tbody>
-					</table>
-					@if( count($gallery) > 0 )
+							</thead>
+							<tbody>
+								@foreach($executions as $exec)
+									<tr>
+										<td style="font-weight: bold">{{ str_replace('_' ,' ' ,@$exec->input) }}</td>
+										<td>{{ @$exec->value }}</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+						@if( count($gallery) > 0 )
+							<button
+								type="button"
+								style="margin-bottom: 10px;"
+								onclick="loadGallery('{{ url("task-manager-gallery/".@$task->id.'/yes') }}')"
+								class="btn btn-primary">
+								Gallery <i class="fa fa-picture-o"></i>
+							</button>
+						@endif
 						<button
 							type="button"
 							style="margin-bottom: 10px;"
-							onclick="loadGallery('{{ url("task-manager-gallery/".@$task->id.'/yes') }}')"
-							class="btn btn-primary">
-							Load Gallery
+							onclick="approveTask('{{ url("task-approve-confirm/".@$task->id.'/1') }}' ,true)"
+							class="btn btn-success">
+							Approve <i class="fa fa-check"></i>
 						</button>
 						<button
 							type="button"
-							id="approve-task-{{ @$task->id }}"
 							style="margin-bottom: 10px;"
-							onclick="approveTask('{{ url("task-approve-confirm/".@$task->id) }}')"
-							class="btn btn-{{ @$task->is_approved == 0 ? 'success' : 'warning' }}">
-							{{ @$task->is_approved == 0 ? 'Approve' : 'Decline' }} This Task
+							onclick="approveTask('{{ url("task-approve-confirm/".@$task->id.'/0') }}' ,false)"
+							class="btn btn-warning">
+							Decline <i class="fa fa-times"></i>
 						</button>
+						@if( @$task->comments()->count() > 0 )
+							<button
+								type="button"
+								style="margin-bottom: 10px;"
+								onclick="loadComments('{{ url("task-approve-load-comments/".@$task->id) }}')"
+								class="btn btn-info">
+								<i class="fa fa-comments"></i>
+							</button>
+						@endif
+					</div>
+					@if(!$loop->last)
+					<div class="col-md-12"><hr></div>
 					@endif
 				</div>
-				@if(!$loop->last)
-				<div class="col-md-12"><hr></div>
-				@endif
 			@endif
 		@endforeach
 	</div>

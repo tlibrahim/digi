@@ -97,38 +97,83 @@
 		})
 	}
 
+	function loadComments(url) {
+		$.ajax({
+			url:url,
+			dataType:'json',
+			type:'GET',
+			success:function(rData) {
+				if (rData.status == 'ok') {
+					$("#comments-pop-up-modal .modal-content").html(rData.code)
+					$("#comments-pop-up-modal").modal('toggle')
+				} else {
+					swal('Sorry We Can`t Load Comments' ,{icon:'error'})
+				}
+			}
+		})
+	}
+
 	function visitLink(link) {
 		window.open(link)
 	}
 
-	function approveTask(url) {
+	function approveTask(url ,decCheck) {
+		var quest = !decCheck ? 'Why This Task Declined ?' : 'Are This Task Approved ?'
 		swal({
-		  	title: "Is Task Done?",
+		  	title: quest,
 		  	icon: "warning",
 		  	buttons: true,
 		  	dangerMode: true,
 		})
 		.then((willDelete) => {
 		  	if (willDelete) {
-		  		$.ajax({
-		  			dataType:'json',
-		  			type:'GET',
-		  			url:url,
-		  			success:function(rData) {
-		  				if (rData.status == 'ok') {
-		  					swal(rData.msg, {icon: rData.icon}).then((v)=>{
-		  						$('#approve-task-'+rData.id).text(rData.text)
-		  						$('#approve-task-'+rData.id).removeClass(rData._class)
-		  						$('#approve-task-'+rData.id).addClass(rData.class)
-		  					})
-		  				} else {
-		  					swal("Sorry we can`t handle this operation!", {icon: "error"})
-		  				}
-		  			}
-		  		})
+		  		if (!decCheck) {
+					swal({
+						text: 'Why this task was declined ?!!',
+						content: "input",
+						button: {
+					    	text: "Submit!",
+					    	closeModal: false,
+					  	},
+					})
+					.then(name => {
+						if (name == '') {
+							swal('Please answer the question' ,{icon:'error'})
+						} else {
+							runAppDecTask(url ,{comment:name,_token:'{{ csrf_token() }}'} ,decCheck)
+						}
+					})
+				} else {
+					runAppDecTask(url ,{_token:'{{ csrf_token() }}'} ,decCheck)
+				}
 		  	} else {
 		    	swal("Operation cancel!" ,{icon:'warning'});
 		  	}
+		})
+	}
+
+	function runAppDecTask(url ,data ,decCheck) {
+		$.ajax({
+		  	dataType:'json',
+		  	type:'POST',
+		  	data:data,
+		  	url:url,
+		  	success:function(rData) {
+		  		if (rData.status == 'ok') {
+		  			swal(rData.msg, {icon: rData.icon}).then((v)=>{
+		  				$('#approve-task-'+rData.id).text(rData.text)
+		  				$('#approve-task-'+rData.id).removeClass(rData._class)
+		  				$('#approve-task-'+rData.id).addClass(rData.class)
+		  				if (!decCheck) {
+		  					$('#task-container-'+rData.id).remove()
+		  				} else {
+		  					$('#task-container-'+rData.id+' span').text( "(Status :'APPROVED')" )
+		  				}
+		  			})
+		  		} else {
+		  			swal("Sorry we can`t handle this operation!", {icon: "error"})
+		  		}
+			}
 		})
 	}
 

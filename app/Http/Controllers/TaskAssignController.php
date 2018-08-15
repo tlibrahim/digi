@@ -66,6 +66,7 @@ class TaskAssignController extends Controller
             }
             if ($counter != 0) {
                 $data['service'] = $s->service;
+                $data['quantity'] = $s->quantity;
                 $services[$k] = $data;
             }
         }
@@ -73,49 +74,10 @@ class TaskAssignController extends Controller
         return view('tasks.assign.assign-form' ,compact('services' ,'quot_id' ,'quot'));
     }
 
-    // public function renderLoaders($key ,$id = null) {
-    // 	$users = CrmUser::all();
-    // 	$tasks = Tasks::all();
-    // 	switch ($key) {
-    // 		case 'edit':
-    // 			$task = TaskAssign::find($id);
-    // 			$code = view('tasks.assign.pop-up.edit-assign-task' ,compact('users' ,'tasks' ,'task'))->render();
-    // 			break;
-    // 		default:
-    // 			$code = view('tasks.assign.pop-up.assign-task' ,compact('users' ,'tasks'))->render();
-    // 			break;
-    // 	}
-    // 	return response(['code' => $code ,'status' => 'ok']);
-    // }
-
-    // public function add() {
-    //     if ( \App\Http\Controllers\UsersController::myPermitedTrigger('tasks_assign' ,'add') == 0 ) {
-    //         return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
-    //     }
-    // 	TaskAssign::create(request()->all());
-    // 	return back()->with('status' ,'Task Assigned Successfully!');
-    // }
-
-    // public function edit($id) {
-    //     if ( \App\Http\Controllers\UsersController::myPermitedTrigger('tasks_assign' ,'edit') == 0 ) {
-    //         return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
-    //     }
-    // 	TaskAssign::find($id)->update(request()->all());
-    // 	return back()->with('status' ,'Assign Updated Successfully!');
-    // }
-
-    // public function delete($id) {
-    //     if ( \App\Http\Controllers\UsersController::myPermitedTrigger('tasks_assign' ,'delete') == 0 ) {
-    //         return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
-    //     }
-    // 	TaskAssign::find($id)->delete();
-    // 	return back()->with('status' ,'Assign Deleted Successfully!');
-    // }
-
     public function postQuotation($quot_id) {
         if ( request()->has('data') ) {
             foreach( request('data') as $d ) {
-                $quot_task = Quotation::find($quot_id)->tasks_assign()->where('service_id' ,$d['service_id'])->where('task_id' ,$d['task_id'])->first();
+                $quot_task = Quotation::find($quot_id)->tasks_assign()->where('service_id' ,$d['service_id'])->where('task_id' ,$d['task_id'])->where('qnt_lvl' ,$d['qnt_lvl'])->first();
                 if (!$quot_task) {
                     TaskAssign::create($d);
                 } else {

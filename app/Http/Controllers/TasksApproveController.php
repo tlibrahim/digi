@@ -7,6 +7,7 @@ use App\Http\Controllers\UsersController;
 
 use App\Quotation;
 use App\TaskAssign;
+use App\TaskApproveComments;
 
 use Exception;
 
@@ -36,21 +37,50 @@ class TasksApproveController extends Controller
 	    }
     }
 
-    public function taskAssignApprove($assign_id) {
+    public function loadComments($assign_id) {
+    	try {
+    		$task = TaskAssign::findOrFail($assign_id);
+    		$comments = $task->comments()->orderBy('id' ,'desc')->get();
+    		$name = $task->task->name;
+    		return response(['code' => view('task-approve.renders.task-comments' ,compact('name' ,'comments'))->render() ,'status' => 'ok']);
+    	} catch (Exception $e) {
+	    	return response(['status' => 'error']);
+	    }
+    }
+
+    // public function taskAssignApprove($assign_id) {
+    // 	try {
+	   //  	$assign = TaskAssign::findOrFail($assign_id);
+	   //  	$check = $assign->is_approved;
+	   //  	$assign->update(['user_approved_id' => auth()->user()->id ,'is_approved' => $check == 0 ? 1 : 0]);
+	   //  	$_class = $check == 0 ? 'btn-success' : 'btn-warning';
+	   //  	$class = $check == 0 ? 'btn-warning' : 'btn-success';
+	   //  	$text = $check == 0 ? 'Decline This Task' : 'Approve This Task';
+	   //  	return response([
+	   //  		'status' => 'ok' ,
+	   //  		'msg' => $check == 0 ? 'Task Approved' : 'Task Declined' ,
+	   //  		'icon' => $check == 0 ? 'success' : 'error',
+	   //  		'class' => $class,
+	   //  		'_class' => $_class,
+	   //  		'text' => $text,
+	   //  		'id' => $assign_id
+	   //  	]);
+	   //  } catch (Exception $e) {
+	   //  	return response(['status' => 'error']);
+	   //  }
+    // }
+
+    public function postTaskAssignApprove($assign_id ,$v) {
     	try {
 	    	$assign = TaskAssign::findOrFail($assign_id);
-	    	$check = $assign->is_approved;
-	    	$assign->update(['user_approved_id' => auth()->user()->id ,'is_approved' => $check == 0 ? 1 : 0]);
-	    	$_class = $check == 0 ? 'btn-success' : 'btn-warning';
-	    	$class = $check == 0 ? 'btn-warning' : 'btn-success';
-	    	$text = $check == 0 ? 'Decline This Task' : 'Approve This Task';
+	    	$assign->update(['user_approved_id' => auth()->user()->id ,'is_approved' => $v ,'is_done' => $v]);
+	    	if ( request()->has('comment') ) {
+	    		TaskApproveComments::create(['task_assign_id' => $assign_id ,'user_decline_id' => auth()->user()->id ,'comment' => request('comment')]);
+	    	}
 	    	return response([
 	    		'status' => 'ok' ,
-	    		'msg' => $check == 0 ? 'Task Approved' : 'Task Declined' ,
-	    		'icon' => $check == 0 ? 'success' : 'error',
-	    		'class' => $class,
-	    		'_class' => $_class,
-	    		'text' => $text,
+	    		'msg' =>$v == 1 ? 'Task Approved' : 'Task Declined' ,
+	    		'icon' => $v == 1 ? 'success' : 'error',
 	    		'id' => $assign_id
 	    	]);
 	    } catch (Exception $e) {

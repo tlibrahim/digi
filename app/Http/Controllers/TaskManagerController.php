@@ -192,14 +192,14 @@ class TaskManagerController extends Controller
     	return url('storage/task-manager/'.$name);
     }
 
-    public static function currentTask($task_assign_id ,$quotation_id ,$service_id ,$serialize_level) {
-    	$check = TaskAssign::where('quotation_id' ,$quotation_id)->where('service_id' ,$service_id)->where('serialize_level' ,'<' ,$serialize_level)->where('is_approved' ,0)->get();
+    public static function currentTask($task_assign_id ,$quotation_id ,$service_id ,$serialize_level ,$qnt_lvl) {
+    	$check = TaskAssign::where('quotation_id' ,$quotation_id)->where('service_id' ,$service_id)->where('serialize_level' ,'<' ,$serialize_level)->where('is_approved' ,0)->where('qnt_lvl' ,$qnt_lvl)->get();
     	return count($check) > 0 ? false : true;
     }
 
-    public static function taskProgress($quot_id ,$ser_id) {
-    	$c_task_assigns = TaskAssign::where('quotation_id' ,$quot_id)->where('service_id' ,$ser_id)->get()->count();
-    	$done_task_assigns = TaskAssign::where('quotation_id' ,$quot_id)->where('service_id' ,$ser_id)->where('is_done' ,1)->get()->count();
+    public static function taskProgress($quot_id ,$ser_id ,$qnt_lvl) {
+    	$c_task_assigns = TaskAssign::where('quotation_id' ,$quot_id)->where('service_id' ,$ser_id)->where('qnt_lvl' ,$qnt_lvl)->get()->count();
+    	$done_task_assigns = TaskAssign::where('quotation_id' ,$quot_id)->where('service_id' ,$ser_id)->where('is_done' ,1)->where('qnt_lvl' ,$qnt_lvl)->get()->count();
     	return $done_task_assigns * 100 / $c_task_assigns;
     }
 }
