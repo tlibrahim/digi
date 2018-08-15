@@ -170,8 +170,13 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('tasks-approve-load-tasks/{quot_id}' ,'TasksApproveController@loadQuotTasks');
 	Route::get('task-approve-load-quots/{v}' ,'TasksApproveController@loadQuots');
 	Route::get('task-approve-load-comments/{assign_id}' ,'TasksApproveController@loadComments');
-	// Route::get('task-approve-confirm/{assign_id}' ,'TasksApproveController@taskAssignApprove');
 	Route::post('task-approve-confirm/{assign_id}/{v}' ,'TasksApproveController@postTaskAssignApprove');
+
+	Route::get('director-tasks-approve' ,'DirectorTasksApproveController@index');
+	Route::get('director-tasks-approve-load-tasks/{quot_id}' ,'DirectorTasksApproveController@loadQuotTasks');
+	Route::get('director-task-approve-load-quots/{v}' ,'DirectorTasksApproveController@loadQuots');
+	Route::get('director-task-approve-load-comments/{assign_id}' ,'DirectorTasksApproveController@loadComments');
+	Route::post('director-task-approve-confirm/{assign_id}/{v}' ,'DirectorTasksApproveController@postTaskAssignApprove');
 
 });
 

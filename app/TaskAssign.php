@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class TaskAssign extends Model
 {
-    protected $fillable = ['quotation_id' ,'user_id' ,'task_id' ,'end_date' ,'service_id' ,'serialize_level' ,'is_done' ,'is_approved' ,'user_approved_id' ,'qnt_lvl'];
+    protected $fillable = [
+        'quotation_id' ,'user_id' ,'task_id' ,
+        'end_date' ,'service_id' ,'serialize_level' ,
+        'is_done' ,'is_approved' ,'user_approved_id' ,
+        'qnt_lvl' ,'q_q_s_id' ,'director_approve'];
 
     public function user() {
         return $this->belongsTo('App\CrmUser' ,'user_id');
@@ -26,6 +30,10 @@ class TaskAssign extends Model
 
     public function quotation() {
         return $this->belongsTo('App\Quotation' ,'quotation_id');
+    }
+
+    public function quotSerQnt() {
+        return $this->belongsTo('App\QuotationServiceQuantity' ,'q_q_s_id');
     }
 
     public function executions() {

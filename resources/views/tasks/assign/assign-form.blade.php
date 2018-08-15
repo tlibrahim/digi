@@ -45,7 +45,18 @@
 									<h4>{{ $s['service']->name }} ({{ $i + 1 }}) :</h4>
 									@foreach(@$s['task']['tasks'] as $k => $t)
 										@php
-										$quot_task = $quot->tasks_assign()->where('service_id' ,@$s['service']->id)->where('task_id' ,@$t->id)->where('qnt_lvl' ,$i)->first();
+										$quot_task = 
+													$quot
+														->tasks_assign()
+														->where('service_id' ,@$s['service']->id)
+														->where('task_id' ,@$t->id)
+														->where('q_q_s_id' ,
+																	\App\QuotationServiceQuantity::
+																			where('quotation_id' ,@$quot_id)
+																			->where('service_id' ,@$s['service']->id)
+																			->where('qnt_lvl' ,$i)
+																			->first()->id)
+														->first();
 										@endphp
 										<div class="col-md-12">
 											<div class="form-group col-md-4">

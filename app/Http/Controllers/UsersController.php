@@ -156,14 +156,18 @@ class UsersController extends Controller
         return $userPermissions->where('trigger_category' ,$cat)->pluck('trigger')->toArray();
     }
 
-    public static function myTaskApproveUsers() {
-        $taskApprovePermission = Permissions::where('trigger_category' ,'task_approve')->first();
+    public static function myTaskApproveUsers($key = 'task_approve') {
+        $taskApprovePermission = Permissions::where('trigger_category' ,$key)->first();
         $taskPositionsIds = $taskApprovePermission->positions()->pluck('position_id')->toArray();
         $depIds = Positions::whereIn('id' ,$taskPositionsIds)->distinct()->pluck('departement_id')->toArray();
         $posIds = Positions::whereIn('departement_id' ,$depIds)->distinct()->pluck('id')->toArray();
         $usersIds = UserPositions::whereIn('position_id' ,$posIds)->distinct()->pluck('user_id')->toArray();
         $myApprovedTasksIds = TaskPositions::whereIn('position_id' ,$posIds)->distinct()->pluck('task_id')->toArray();
-        $tasks_assign_ids = TaskAssign::whereIn('user_id' ,$usersIds)->whereIn('task_id' ,$myApprovedTasksIds)->where('is_done' ,1)->distinct()->pluck('id')->toArray();
+        if ($key == 'task_approve') {
+            $tasks_assign_ids = TaskAssign::whereIn('user_id' ,$usersIds)->whereIn('task_id' ,$myApprovedTasksIds)->where('is_done' ,1)->distinct()->pluck('id')->toArray();
+        } else {
+            $tasks_assign_ids = TaskAssign::whereIn('user_id' ,$usersIds)->whereIn('task_id' ,$myApprovedTasksIds)->where('is_done' ,1)->where('is_approved' ,1)->distinct()->pluck('id')->toArray();
+        }
         return $tasks_assign_ids;
     }
 }

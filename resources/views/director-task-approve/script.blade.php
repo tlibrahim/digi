@@ -42,7 +42,7 @@
 
 	function loadProgressQuots() {
       	$.ajax({
-          	url:'{{ url("task-approve-load-quots/0") }}',
+          	url:'{{ url("director-task-approve-load-quots/0") }}',
           	dataType:'json',
           	type:'GET',
           	success:function(rData) {
@@ -54,7 +54,7 @@
 
   	function loadCompletedQuots() {
       	$.ajax({
-          	url:'{{ url("task-approve-load-quots/1") }}',
+          	url:'{{ url("director-task-approve-load-quots/1") }}',
           	dataType:'json',
           	type:'GET',
           	async:true,
@@ -167,7 +167,7 @@
 		  				if (!decCheck) {
 		  					$('#task-container-'+rData.id).remove()
 		  				} else {
-		  					$('#task-container-'+rData.id+' span').text( "(Status :'APPROVED')" )
+		  					$('#task-container-'+rData.id+' span').text( "(Status :'Director APPROVED')" )
 		  				}
 		  			})
 		  		} else {

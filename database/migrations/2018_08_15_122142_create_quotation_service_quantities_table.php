@@ -21,7 +21,7 @@ class CreateQuotationServiceQuantitiesTable extends Migration
             $table->foreign('service_id')->references('id')->on('services');
             $table->integer('qnt_lvl')->nullable();
             $table->boolean('completed')->default(0);
-            $table->boolean('is_approved')->default();
+            $table->boolean('is_approved')->default(0);
             $table->timestamps();
         });
     }

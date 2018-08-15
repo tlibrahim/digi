@@ -12,6 +12,7 @@ use App\Positions;
 use App\UserPositions;
 use App\QuotationServices;
 use App\Quotation;
+use App\QuotationServiceQuantity;
 
 use App\Http\Controllers\UsersController;
 use Auth;
@@ -77,8 +78,16 @@ class TaskAssignController extends Controller
     public function postQuotation($quot_id) {
         if ( request()->has('data') ) {
             foreach( request('data') as $d ) {
-                $quot_task = Quotation::find($quot_id)->tasks_assign()->where('service_id' ,$d['service_id'])->where('task_id' ,$d['task_id'])->where('qnt_lvl' ,$d['qnt_lvl'])->first();
+                $qsq = QuotationServiceQuantity::firstOrCreate(['service_id' => $d['service_id'] ,'quotation_id' => $quot_id ,'qnt_lvl' => $d['qnt_lvl'] ]);
+                unset($d['qnt_lvl']);
+                $quot_task = Quotation::find($quot_id)
+                                ->tasks_assign()
+                                ->where('service_id' ,$d['service_id'])
+                                ->where('task_id' ,$d['task_id'])
+                                ->where('q_q_s_id' ,$qsq->id)
+                                ->first();
                 if (!$quot_task) {
+                    $d['q_q_s_id'] = $qsq->id;
                     TaskAssign::create($d);
                 } else {
                     $quot_task->update($d);

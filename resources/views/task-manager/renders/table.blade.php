@@ -14,8 +14,8 @@
     	@foreach($tasks as $task)
         	<tr id="task-tr-{{ @$task->id }}">
             	@php
-	            	$currentTask = \App\Http\Controllers\TaskManagerController::currentTask(@$task->id ,@$task->quotation_id ,@$task->service_id ,@$task->serialize_level ,@$task->qnt_lvl);
-	                $progress = \App\Http\Controllers\TaskManagerController::taskProgress(@$task->quotation_id ,@$task->service_id ,@$task->qnt_lvl);
+	            	$currentTask = \App\Http\Controllers\TaskManagerController::currentTask(@$task->id ,@$task->quotation_id ,@$task->service_id ,@$task->serialize_level ,@$task->q_q_s_id);
+	                $progress = \App\Http\Controllers\TaskManagerController::taskProgress(@$task->quotation_id ,@$task->service_id ,@$task->q_q_s_id);
 	            @endphp
 	            <td class="text-center">{{ @$task->id }}</td>
 	            <td>{{ @$task->quotation->company->name }}</td>
