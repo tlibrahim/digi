@@ -2,7 +2,7 @@
     <button type="button" class="close" data-dismiss="modal">&times;</button>
 	<h4 class="modal-title">Company '{{ @$company_name }}' Task Manager</h4>
 </div>
-<form style="height:700px;overflow-y:scroll;">
+<form style="max-height:700px;overflow-y:scroll;">
 	<div class="modal-body">
 		@foreach($tasks as $task)
 			@php
@@ -12,7 +12,7 @@
 			@if ( count($executions) > 0 )
 				<div id="task-container-{{ @$task->id }}">
 					<div class="col-md-12">	
-						<h3>{{ @$task->task->name }} <span>@if(@$task->director_approved == 1) (Status :'APPROVED') @endif</span></h3>
+						<h3>{{ @$task->task->name }} <span>@if(@$task->director_approve == 1) (My Status :'APPROVED') @endif</span></h3>
 						<table class="table table-striped table-bordered">
 							<thead>
 								<tr>
@@ -40,16 +40,18 @@
 						@endif
 						<button
 							type="button"
+							{{ \App\QuotationServiceQuantity::find(@$task->q_q_s_id)->completed == 1 ? 'disabled' : '' }}
 							style="margin-bottom: 10px;"
 							onclick="approveTask('{{ url("director-task-approve-confirm/".@$task->id.'/1') }}' ,true)"
-							class="btn btn-success">
+							class="btn btn-success btn-approve-task">
 							Approve <i class="fa fa-check"></i>
 						</button>
 						<button
 							type="button"
+							{{ \App\QuotationServiceQuantity::find(@$task->q_q_s_id)->completed == 1 ? 'disabled' : '' }}
 							style="margin-bottom: 10px;"
 							onclick="approveTask('{{ url("director-task-approve-confirm/".@$task->id.'/0') }}' ,false)"
-							class="btn btn-warning">
+							class="btn btn-warning btn-decline-task">
 							Decline <i class="fa fa-times"></i>
 						</button>
 						@if( @$task->comments()->count() > 0 )

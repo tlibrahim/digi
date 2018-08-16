@@ -18,7 +18,7 @@
 	            	@endforeach
 	            </td>
 	            <td>
-	                <button onclick="loadPopUp('{{ url('tasks-approve-load-tasks/'.@$quot->id) }}')" class="btn btn-info">
+	                <button onclick="loadPopUp('{{ url('tasks-approve-load-tasks/'.@$quot->id.'/'.@$v) }}')" class="btn btn-info">
 	                	Manage Completed Tasks
 	            	</button>
 	        	</td>

@@ -25,7 +25,7 @@
 	        if (target == '#tab01') {
 	          	loadProgressQuots()
 	        } else if (target == '#tab02') {
-	          	loadCompletedQuots()
+	          	loadDeclinedQuotsTasks()
 	        }
       	})
 
@@ -52,9 +52,9 @@
       	})
   	}
 
-  	function loadCompletedQuots() {
+  	function loadDeclinedQuotsTasks() {
       	$.ajax({
-          	url:'{{ url("director-task-approve-load-quots/1") }}',
+          	url:'{{ url("director-task-approve-load-declined") }}',
           	dataType:'json',
           	type:'GET',
           	async:true,
@@ -168,6 +168,10 @@
 		  					$('#task-container-'+rData.id).remove()
 		  				} else {
 		  					$('#task-container-'+rData.id+' span').text( "(Status :'Director APPROVED')" )
+		  				}
+		  				if (rData.completed == 1) {
+		  					$('.btn-approve-task').prop('disabled' ,true)
+		  					$('.btn-decline-task').prop('disabled' ,true)
 		  				}
 		  			})
 		  		} else {

@@ -1,7 +1,7 @@
 <script>
 	
 	$(document).ready(function() {
-      	loadProgressQuots()
+      	loadProgressTasks()
       	var $tabButtonItem = $('#tab-button li'),
       		$tabSelect = $('#tab-select'),
       		$tabContents = $('.tab-contents'),
@@ -23,9 +23,9 @@
 	        $(target).find('.dataTables_length:first').parent().parent().show()
 	        $(target).find('.dataTables_info:first').parent().parent().show()
 	        if (target == '#tab01') {
-	          	loadProgressQuots()
+	          	loadProgressTasks()
 	        } else if (target == '#tab02') {
-	          	loadCompletedQuots()
+	          	loadDeclinedTasks()
 	        }
       	})
 
@@ -40,7 +40,7 @@
       	})
 	})
 
-	function loadProgressQuots() {
+	function loadProgressTasks() {
       	$.ajax({
           	url:'{{ url("task-approve-load-quots/0") }}',
           	dataType:'json',
@@ -52,7 +52,7 @@
       	})
   	}
 
-  	function loadCompletedQuots() {
+  	function loadDeclinedTasks() {
       	$.ajax({
           	url:'{{ url("task-approve-load-quots/1") }}',
           	dataType:'json',

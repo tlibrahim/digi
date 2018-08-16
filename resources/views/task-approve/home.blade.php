@@ -36,14 +36,14 @@
 	            	<div class="tabs">
                         <div class="tab-button-outer">
                             <ul id="tab-button">
-                              	<li><a href="#tab01">In Progress Quotations</a></li>
-                              	<li><a href="#tab02">Completed Quotations</a></li>
+                              	<li><a href="#tab01">In Progress Tasks</a></li>
+                              	<li><a href="#tab02">Declined Tasks</a></li>
                             </ul>
                         </div>
                         <div class="tab-select-outer">
                             <select id="tab-select">
-                              	<option value="#tab01">In Progress Quotations</option>
-                              	<option value="#tab02">Completed Quotations</option>
+                              	<option value="#tab01">In Progress Tasks</option>
+                              	<option value="#tab02">Declined Tasks</option>
                             </select>
                         </div>
 

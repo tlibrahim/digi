@@ -2,7 +2,7 @@
     <button type="button" class="close" data-dismiss="modal">&times;</button>
 	<h4 class="modal-title">Company '{{ @$company_name }}' Task Manager</h4>
 </div>
-<form style="height:700px;overflow-y:scroll;">
+<form style="max-height:700px;overflow-y:scroll;">
 	<div class="modal-body">
 		@foreach($tasks as $task)
 			@php
@@ -12,7 +12,13 @@
 			@if ( count($executions) > 0 )
 				<div id="task-container-{{ @$task->id }}">
 					<div class="col-md-12">	
-						<h3>{{ @$task->task->name }} <span>@if(@$task->is_done == 1 && @$task->is_approved == 1) (Status :'APPROVED') @endif</span></h3>
+						<h3>
+							{{ @$task->task->name }} 
+							<span>
+								@if(@$task->is_done == 1 && @$task->is_approved == 1) (My Status :'APPROVED') @endif
+								@if(@$task->is_director_declined == 1) (Director Status :'Declined') @endif
+							</span>
+						</h3>
 						<table class="table table-striped table-bordered">
 							<thead>
 								<tr>
@@ -52,13 +58,22 @@
 							class="btn btn-warning">
 							Decline <i class="fa fa-times"></i>
 						</button>
-						@if( @$task->comments()->count() > 0 )
+						@if( @$task->comments()->where('type' ,'T.L. Comment')->count() > 0 )
 							<button
 								type="button"
 								style="margin-bottom: 10px;"
-								onclick="loadComments('{{ url("task-approve-load-comments/".@$task->id) }}')"
+								onclick="loadComments('{{ url("task-approve-load-comments/".@$task->id.'/0') }}')"
 								class="btn btn-info">
-								<i class="fa fa-comments"></i>
+								My <i class="fa fa-comments"></i>
+							</button>
+						@endif
+						@if( @$task->comments()->where('type' ,'Director Comment')->count() > 0 )
+							<button
+								type="button"
+								style="margin-bottom: 10px;"
+								onclick="loadComments('{{ url("task-approve-load-comments/".@$task->id.'/1') }}')"
+								class="btn btn-danger">
+								Director <i class="fa fa-comments"></i>
 							</button>
 						@endif
 					</div>

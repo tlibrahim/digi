@@ -164,17 +164,20 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('task-manager-history/{assign_id}' ,'TaskManagerController@taskHistory');
 	Route::get('task-manager-confirm/{assign_id}' ,'TaskManagerController@taskConfirm');
 	Route::get('task-manager-gallery/{assign_id}/{with_del?}' ,'TaskManagerController@taskGallery');
+	Route::get('task-manager-comments/{assign_id}' ,'TaskManagerController@taskComments');
 	Route::post('task-manager-delete-file' ,'TaskManagerController@deleteFile');
 
 	Route::get('tasks-approve' ,'TasksApproveController@index');
-	Route::get('tasks-approve-load-tasks/{quot_id}' ,'TasksApproveController@loadQuotTasks');
+	Route::get('tasks-approve-load-tasks/{quot_id}/{dec}' ,'TasksApproveController@loadQuotTasks');
 	Route::get('task-approve-load-quots/{v}' ,'TasksApproveController@loadQuots');
-	Route::get('task-approve-load-comments/{assign_id}' ,'TasksApproveController@loadComments');
+	Route::get('task-approve-load-comments/{assign_id}/{declined}' ,'TasksApproveController@loadComments');
 	Route::post('task-approve-confirm/{assign_id}/{v}' ,'TasksApproveController@postTaskAssignApprove');
 
 	Route::get('director-tasks-approve' ,'DirectorTasksApproveController@index');
 	Route::get('director-tasks-approve-load-tasks/{quot_id}' ,'DirectorTasksApproveController@loadQuotTasks');
 	Route::get('director-task-approve-load-quots/{v}' ,'DirectorTasksApproveController@loadQuots');
+	Route::get('director-task-approve-load-declined' ,'DirectorTasksApproveController@loadDeclinedQuots');
+	Route::get('director-tasks-approve-load-qqs-comments/{qqs_id}' ,'DirectorTasksApproveController@loadDeclinedQuotsComments');
 	Route::get('director-task-approve-load-comments/{assign_id}' ,'DirectorTasksApproveController@loadComments');
 	Route::post('director-task-approve-confirm/{assign_id}/{v}' ,'DirectorTasksApproveController@postTaskAssignApprove');
 

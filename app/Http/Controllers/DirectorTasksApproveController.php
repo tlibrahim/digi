@@ -8,8 +8,10 @@ use App\Http\Controllers\UsersController;
 use App\Quotation;
 use App\TaskAssign;
 use App\TaskApproveComments;
+use App\QuotationServiceQuantity;
 
 use Exception;
+use DB;
 
 class DirectorTasksApproveController extends Controller
 {
@@ -27,6 +29,11 @@ class DirectorTasksApproveController extends Controller
     	return response(['code' => view('director-task-approve.renders.table' ,compact('quots'))->render()]);
     }
 
+    public function loadDeclinedQuots() {
+    	$qqs = QuotationServiceQuantity::where('is_approved' ,1)->get();
+    	return response(['code' => view('director-task-approve.renders.declined-table' ,compact('qqs'))->render()]);
+    }
+
     public function loadQuotTasks($quot_id) {
     	try {
 	    	$tasks = TaskAssign::whereIn('id' ,$this->my_tasks_assign_id)->where('quotation_id' ,$quot_id)->get();
@@ -42,7 +49,19 @@ class DirectorTasksApproveController extends Controller
     		$task = TaskAssign::findOrFail($assign_id);
     		$comments = $task->comments()->orderBy('id' ,'desc')->where('type' ,'Director Comment')->get();
     		$name = $task->task->name;
-    		return response(['code' => view('director-task-approve.renders.task-comments' ,compact('name' ,'comments'))->render() ,'status' => 'ok']);
+    		$customer = false;
+    		return response(['code' => view('director-task-approve.renders.task-comments' ,compact('name' ,'comments' ,'customer'))->render() ,'status' => 'ok']);
+    	} catch (Exception $e) {
+	    	return response(['status' => 'error']);
+	    }
+    }
+
+    public function loadDeclinedQuotsComments($qqs_id) {
+    	try {
+    		$comments = QuotationServiceQuantity::find($qqs_id)->comments()->orderBy('id' ,'desc')->get();
+    		$name = QuotationServiceQuantity::find($qqs_id)->quotation->company->name;
+    		$customer = true;
+    		return response(['code' => view('director-task-approve.renders.task-comments' ,compact('name' ,'comments' ,'customer'))->render() ,'status' => 'ok']);
     	} catch (Exception $e) {
 	    	return response(['status' => 'error']);
 	    }
@@ -51,18 +70,37 @@ class DirectorTasksApproveController extends Controller
     public function postTaskAssignApprove($assign_id ,$v) {
     	try {
 	    	$assign = TaskAssign::findOrFail($assign_id);
-	    	$assign->update(['is_approved' => $v ,'director_approve' => $v]);
+	    	$assign->update(['is_approved' => $v ,'director_approve' => $v ,'is_director_declined' => !$v]);
 	    	if ( request()->has('comment') ) {
 	    		TaskApproveComments::create(['task_assign_id' => $assign_id ,'user_decline_id' => auth()->user()->id ,'comment' => request('comment') ,'type' => 'Director Comment']);
 	    	}
+	    	$completed = $this->completeQSQ($assign->quotation_id ,$assign->service_id ,$assign->q_q_s_id);
 	    	return response([
 	    		'status' => 'ok' ,
 	    		'msg' =>$v == 1 ? 'Task Approved' : 'Task Declined' ,
 	    		'icon' => $v == 1 ? 'success' : 'error',
-	    		'id' => $assign_id
+	    		'id' => $assign_id,
+	    		'completed' => $completed
 	    	]);
 	    } catch (Exception $e) {
 	    	return response(['status' => 'error']);
 	    }
+    }
+
+    private function completeQSQ($quot_id ,$ser_id ,$qsq_id) {
+    	$task_number = TaskAssign::where('quotation_id' ,$quot_id)
+	    							->where('service_id' ,$ser_id)
+	    							->where('q_q_s_id' ,$qsq_id)
+	    							->get()->count();
+	    $approved_task_number = TaskAssign::where('quotation_id' ,$quot_id)
+	    							->where('service_id' ,$ser_id)
+	    							->where('q_q_s_id' ,$qsq_id)
+	    							->where('director_approve' ,1)
+	    							->get()->count();
+	    if ( $approved_task_number == $task_number ) {
+	    	QuotationServiceQuantity::find($qsq_id)->update(['completed' => 1]);
+	    	return 1;
+	    }
+	    return 0;
     }
 }

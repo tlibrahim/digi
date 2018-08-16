@@ -45,7 +45,8 @@ class TaskManagerController extends Controller
     		$quot_id = $assign->quotation_id;
     		$ser_id = $assign->service_id;
     		$tasks = TaskAssign::where('quotation_id' ,$quot_id)
-    					->where('service_id' ,$ser_id)
+                        ->where('service_id' ,$ser_id)
+    					->where('q_q_s_id' ,$assign->q_q_s_id)
     					// ->where('serialize_level' ,'<' ,$assign->serialize_level)
     					->where('is_done' ,1)
     					->get();
@@ -177,13 +178,26 @@ class TaskManagerController extends Controller
     			return response(['status' => 'confirm']);
     		}
 
-    		$task->update(['is_done' => 1]);
+    		$task->update(['is_done' => 1 ,'is_director_declined' => 0]);
     		$code = view('task-manager.renders.tr' ,compact('task'))->render();
             $prog = TaskManagerController::taskProgress($task->quotation_id, $task->service_id, $task->qnt_lvl).'%';
     		return response(['status' => 'ok' ,'code' => $code ,'progress' => $prog ,'id' => $assign_id ]);
     	} catch (Exception $e) {
     		return response(['status' => 'error']);
     	}
+    }
+
+    public function taskComments($assign_id) {
+        try {
+            $assign = TaskAssign::findOrFail($assign_id);
+            $service_name = $assign->service->name;
+            $company_name = $assign->quotation->company->name;
+            $comments = $assign->comments()->where('type' ,'T.L. Comment')->get();
+            $code = view('task-manager.pop-up.comments' ,compact('comments' ,'service_name' ,'company_name'))->render();
+            return response(['status' => 'ok' ,'code' => $code]);
+        } catch (Exception $e) {
+            return response(['status' => 'error']);
+        }
     }
 
     private function upload($file) {

@@ -49,6 +49,12 @@
 				                <i class="si si-docs"></i>
 				            </button>
 				        @endif
+		                @if(@$task->comments()->where('type' ,'T.L. Comment')->get()->count() > 0)
+				        	<button class="btn btn-default btn-gallery" title="Declined Comments"
+				            	onclick="loadPopUp('{{ url("task-manager-comments/".@$task->id) }}')">
+				                <i class="fa fa-comments"></i>
+				            </button>
+				        @endif
 				    @endif
 	                <button class="btn btn-default btn-history" title="Task History"
 	                	onclick="loadPopUp('{{ url("task-manager-history/".@$task->id) }}')">

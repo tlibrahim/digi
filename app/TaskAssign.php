@@ -10,7 +10,7 @@ class TaskAssign extends Model
         'quotation_id' ,'user_id' ,'task_id' ,
         'end_date' ,'service_id' ,'serialize_level' ,
         'is_done' ,'is_approved' ,'user_approved_id' ,
-        'qnt_lvl' ,'q_q_s_id' ,'director_approve'];
+        'qnt_lvl' ,'q_q_s_id' ,'director_approve' ,'is_director_declined'];
 
     public function user() {
         return $this->belongsTo('App\CrmUser' ,'user_id');

@@ -23,24 +23,34 @@ class TasksApproveController extends Controller
     }
 
     public function loadQuots($v) {
-    	$quots = Quotation::whereIn('id' ,TaskAssign::whereIn('id' ,$this->my_tasks_assign_id)->distinct()->pluck('quotation_id')->toArray() )->get();
-    	return response(['code' => view('task-approve.renders.table' ,compact('quots'))->render()]);
+    	$quots = Quotation::whereIn('id' ,
+    						TaskAssign::whereIn('id' ,$this->my_tasks_assign_id)
+    									->where('is_director_declined' ,$v)
+    									->where('director_approve' ,0)
+    									->distinct()
+    									->pluck('quotation_id')->toArray()
+    						)->get();
+    	return response(['code' => view('task-approve.renders.table' ,compact('quots' ,'v'))->render()]);
     }
 
-    public function loadQuotTasks($quot_id) {
+    public function loadQuotTasks($quot_id ,$declined) {
     	try {
-	    	$tasks = TaskAssign::whereIn('id' ,$this->my_tasks_assign_id)->where('quotation_id' ,$quot_id)->get();
+	    	$tasks = TaskAssign::whereIn('id' ,$this->my_tasks_assign_id)
+	    						->where('is_director_declined' ,$declined)
+	    						->where('quotation_id' ,$quot_id)
+    							->where('director_approve' ,0)
+	    						->get();
 	    	$company_name = Quotation::find($quot_id)->company->name;
-	    	return response(['code' => view('task-approve.renders.tasks' ,compact('tasks' ,'company_name'))->render() ,'status' => 'ok']);
+	    	return response(['code' => view('task-approve.renders.tasks' ,compact('tasks' ,'company_name' ,'declined'))->render() ,'status' => 'ok']);
 	    } catch (Exception $e) {
 	    	return response(['status' => 'error']);
 	    }
     }
 
-    public function loadComments($assign_id) {
+    public function loadComments($assign_id ,$declined) {
     	try {
     		$task = TaskAssign::findOrFail($assign_id);
-    		$comments = $task->comments()->orderBy('id' ,'desc')->where('type' ,'T.L. Comment')->get();
+    		$comments = $task->comments()->orderBy('id' ,'desc')->where('type' ,$declined == 0 ? 'T.L. Comment' : 'Director Comment')->get();
     		$name = $task->task->name;
     		return response(['code' => view('task-approve.renders.task-comments' ,compact('name' ,'comments'))->render() ,'status' => 'ok']);
     	} catch (Exception $e) {

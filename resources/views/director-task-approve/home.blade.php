@@ -37,13 +37,13 @@
                         <div class="tab-button-outer">
                             <ul id="tab-button">
                               	<li><a href="#tab01">In Progress Quotations</a></li>
-                              	<li><a href="#tab02">Completed Quotations</a></li>
+                              	<li><a href="#tab02">Declined Quotation Services</a></li>
                             </ul>
                         </div>
                         <div class="tab-select-outer">
                             <select id="tab-select">
                               	<option value="#tab01">In Progress Quotations</option>
-                              	<option value="#tab02">Completed Quotations</option>
+                              	<option value="#tab02">Declined Quotation Services</option>
                             </select>
                         </div>
 
@@ -57,7 +57,7 @@
 </main>
 
 <div id="pop-up-modal" class="modal fade" role="dialog">
-  	<div class="modal-dialog" style="width: 50%">
+  	<div class="modal-dialog" style="width: 45%">
     	<div class="modal-content" style="overflow:  hidden;"></div>
 	</div>
 </div>
