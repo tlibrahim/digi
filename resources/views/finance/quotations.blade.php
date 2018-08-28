@@ -52,6 +52,9 @@
                                         <td>----</td>
                                         <td>----</td>
                                         <td>----</td>
+                                        <td>----</td>
+                                        <td>----</td>
+                                        <td>----</td>
                                     </tr>
                                 @endif  
                             </tbody>

@@ -181,6 +181,11 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('director-task-approve-load-comments/{assign_id}' ,'DirectorTasksApproveController@loadComments');
 	Route::post('director-task-approve-confirm/{assign_id}/{v}' ,'DirectorTasksApproveController@postTaskAssignApprove');
 
+
+	Route::get('complete-proposals' ,'ProposalsController@index');
+	Route::get('complete-proposals-current' ,'ProposalsController@getCurrentProposals');
+	Route::get('complete-proposals/load-proposal/{id}' ,'ProposalsController@loadProposal');
+
 });
 
 

@@ -51,11 +51,11 @@
 														->where('service_id' ,@$s['service']->id)
 														->where('task_id' ,@$t->id)
 														->where('q_q_s_id' ,
-																	\App\QuotationServiceQuantity::
-																			where('quotation_id' ,@$quot_id)
-																			->where('service_id' ,@$s['service']->id)
-																			->where('qnt_lvl' ,$i)
-																			->first()->id)
+																	\App\QuotationServiceQuantity::firstOrCreate([
+																		'quotation_id' => @$quot_id ,
+																		'service_id' => @$s['service']->id ,
+																		'qnt_lvl' => $i
+																	])->id)
 														->first();
 										@endphp
 										<div class="col-md-12">

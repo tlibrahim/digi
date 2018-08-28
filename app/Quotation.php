@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quotation extends Model
 {
-    protected $fillable = ['company_id' ,'total' ,'with_contract' ,'total_offer' ,'is_collected' ,'collect_date'];
+    protected $fillable = ['company_id' ,'total' ,'with_contract' ,'total_offer' ,'is_collected' ,'collect_date' ,'is_proposal_completed'];
     
     public function services() {
         return $this->hasMany('App\QuotationServices' ,'quotation_id');

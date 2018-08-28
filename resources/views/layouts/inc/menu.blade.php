@@ -72,6 +72,14 @@
                         </a>
                     </li>
                     @endif
+                    @if( in_array('complete_proposal' ,$my_permissions_triggers) )
+                    <li>
+                        <a class="{{ Request::segment(1) == 'complete-proposals' ? 'active' : '' }}"
+                            href="{{ url('complete-proposals') }}">
+                            <i class="si si-badge"></i><span class="sidebar-mini-hide">Proposals</span>
+                        </a>
+                    </li>
+                    @endif
                     @if( in_array('contracts' ,$my_permissions_triggers) )
                     <li>
                         <a class="{{ Request::segment(1) == 'contracts' ? 'active' : '' }}"

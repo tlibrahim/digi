@@ -34,8 +34,8 @@ class FinanceController extends Controller
     		$quotations = Quotation::whereIn('company_id' ,$companies)->where('is_collected' ,1)->get();
     	} else {
     		$contracts = Contracts::where('is_signed' ,1)->pluck('quotation_id')->toArray();
-    		$quotations = Quotation::whereIn('company_id' ,$companies)->where('with_contract' ,0)->where('is_collected' ,0)->get();
-    		$quotContr = Quotation::whereIn('id' ,$contracts)->where('is_collected' ,0)->get();
+    		$quotations = Quotation::whereIn('company_id' ,$companies)->where('with_contract' ,0)->where('is_collected' ,0)->where('is_proposal_completed' ,1)->get();
+    		$quotContr = Quotation::whereIn('id' ,$contracts)->where('is_collected' ,0)->where('is_proposal_completed' ,1)->get();
     		$quotations = $quotations->merge($quotContr);
     	}
     	return response(['code' => view('finance.quotations' ,compact('collect' ,'quotations' ,'key'))->render()]);

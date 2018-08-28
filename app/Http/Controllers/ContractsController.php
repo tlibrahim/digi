@@ -27,7 +27,7 @@ class ContractsController extends Controller
     public function loadContractsQuot() {
     	$myPermissions = UsersController::myPermissions('contracts');
         $companies = Companies::where('progress' ,100)->pluck('id')->toArray();
-    	$quots = Quotation::where('with_contract' ,1)->where('is_collected' ,0)->whereIn('company_id' ,$companies)->get();
+    	$quots = Quotation::where('with_contract' ,1)->where('is_collected' ,0)->where('is_proposal_completed' ,1)->whereIn('company_id' ,$companies)->get();
     	$code = view('contracts.quot-table' ,compact('myPermissions' ,'quots'))->render();
     	return response(['code' => $code]);
     }
