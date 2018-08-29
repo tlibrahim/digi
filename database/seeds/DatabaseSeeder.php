@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
+use App\CrmUser;
 use App\Positions;
 use App\Department;
+use App\Permissions;
+use App\PermissionPositions;
 
 class DatabaseSeeder extends Seeder
 {
@@ -160,24 +162,267 @@ class DatabaseSeeder extends Seeder
         $dep = Department::create([
             'name' => 'Business Development'
         ]);
-        DB::table('departments')->insert([
+        
+        $s_dep = Department::create([
             'name' => 'Software Development'
         ]);
+
         DB::table('departments')->insert([
             'name' => 'Digital Marketing'
         ]);
-        $admin = User::create([
+        $admin = CrmUser::create([
             'name' => 'Admin',
-            'email' => 'admin@digi-sail.com',
-            'password' => bcrypt(123456)
+            'email' => 'admin@digisail.com',
+            'password' => 123456
             ]);
         $pos = Positions::create([
-            'name' => 'Team Leader',
-            'departement_id' => $dep->id
+            'name' => 'Business Development Manager',
+            'departement_id' => $dep->id,
+            'type' => 'Team Leader'
+            ]);
+        $s_pos = Positions::create([
+            'name' => 'System Admin',
+            'departement_id' => $dep->id,
+            'type' => 'Team Leader'
             ]);
         DB::table('user_positions')->insert([
             'position_id' => $pos->id,
             'user_id' => $admin->id
             ]);
+        DB::table('user_positions')->insert([
+            'position_id' => $s_pos->id,
+            'user_id' => $admin->id
+            ]);
+
+        // $perm = Permissions::create(['trigger' => '' ,'name' => '' ,'trigger_category' => '']);
+        // PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'moderator' ,'name' => 'Moderation' ,'trigger_category' => 'customers']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_lead' ,'name' => 'Add Leads' ,'trigger_category' => 'customers']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_potential' ,'name' => 'Add Potential' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_customer' ,'name' => 'Add Customer' ,'trigger_category' => 'customers']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit_potential' ,'name' => 'Edit Potential' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_strategy' ,'name' => 'Add Strategy' ,'trigger_category' => 'proposal']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'admin' ,'name' => 'Admin' ,'trigger_category' => 'admin']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_quotation' ,'name' => 'Add Quotation' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_meeting' ,'name' => 'Add Meeting' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_proposal' ,'name' => 'Add Proposal' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'first_feedback' ,'name' => 'First Feedback To DIGI-SAIL Customer' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'technical_call' ,'name' => 'Technical Call' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_meeting_feedback' ,'name' => 'Add Meeting Feedback' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'update_profile' ,'name' => 'Update Profile' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_connection' ,'name' => 'Add Connection' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'departement']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'departement']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'departement']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'positions']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'positions']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'positions']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'permissions']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'permissions']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'permissions']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'industries']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'industries']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'industries']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'users']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'users']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'users']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'tasks_generator']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'tasks_generator']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'tasks_generator']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'assign' ,'name' => 'Assign' ,'trigger_category' => 'tasks_assign']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'services']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'services']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'services']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'plans']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'plans']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'plans']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'levels']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'levels']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'levels']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'technologies']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'technologies']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'technologies']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'look_and_feels']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'look_and_feels']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'look_and_feels']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'content']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'content']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'content']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'post_types']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'post_types']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'post_types']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'promote_status']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'promote_status']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'promote_status']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'management']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'management']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'management']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add' ,'name' => 'Add' ,'trigger_category' => 'feedback_forms']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit' ,'name' => 'Edit' ,'trigger_category' => 'feedback_forms']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete' ,'name' => 'Delete' ,'trigger_category' => 'feedback_forms']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'view_lead' ,'name' => 'View Lead' ,'trigger_category' => 'customers']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete_potential' ,'name' => 'Delete Potential' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'verify_potential' ,'name' => 'Verify Potential' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit_connection' ,'name' => 'Edit Connection' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'delete_connection' ,'name' => 'Delete Connection' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_feedback' ,'name' => 'Add Feedback' ,'trigger_category' => 'potential']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'add_contract' ,'name' => 'Add' ,'trigger_category' => 'contracts']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'edit_contract' ,'name' => 'Edit' ,'trigger_category' => 'contracts']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'collect_money' ,'name' => 'Collect Money' ,'trigger_category' => 'finance']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'task_approve' ,'name' => 'Task Approve' ,'trigger_category' => 'task_approve']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'director_task_approve' ,'name' => 'Director Task Approve' ,'trigger_category' => 'director_task_approve']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
+        
+        $perm = Permissions::create(['trigger' => 'complete_proposal' ,'name' => 'Complete Proposal' ,'trigger_category' => 'complete_proposal']);
+        PermissionPositions::create(['position_id' => $s_pos->id ,'permission_id' => $perm->id]);
     }
 }

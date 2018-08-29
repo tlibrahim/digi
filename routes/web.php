@@ -186,6 +186,15 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('complete-proposals-current' ,'ProposalsController@getCurrentProposals');
 	Route::get('complete-proposals/load-proposal/{id}' ,'ProposalsController@loadProposal');
 
+
+	Route::get('read-permission' ,function() {
+		$data = \App\Permissions::all();
+		foreach($data as $d) {
+			echo "perm = Permissions::create(['trigger' => '".$d->trigger."' ,'name' => '".$d->name."' ,'trigger_category' => '".$d->trigger_category."']);".
+        		 "PermissionPositions::create(['position_id' => s_pos->id ,'permission_id' => perm->id]);</br>";
+		}
+	});
+
 });
 
 
