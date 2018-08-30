@@ -19,6 +19,14 @@
                   @endforeach
                 </select>
               </div>
+              <div class="form-group" style="width:100%">
+                <label>Select Form</label>
+                <select style="width:100%" class="form-control select2" required name="form_ids[]" multiple>
+                  @foreach($proposal_forms as $f)
+                  <option {{ in_array($f->id ,@$quot->proposal->selectedForms()->pluck('form_id')->toArray()) ? 'selected' : '' }} value="{{ @$f->id }}">{{ @$f->title }}</option>
+                  @endforeach
+                </select>
+              </div>
 					    <div class="modal-footer" style="padding: 15px 0">
 						    <button class="btn btn-primary pull-right">Save</button>
 			        	<button type="button" class="btn btn-default pull-left" data-dismiss="modal" style="margin-left: 0">Close</button>

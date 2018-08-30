@@ -15,4 +15,8 @@ class Proposal extends Model
     public function proposal() {
     	return $this->hasOne('App\ProposalData' ,'proposal_id');
     }
+
+    public function selectedForms() {
+    	return $this->hasOne('App\ProposalSelectedForm' ,'proposal_id');
+    }
 }

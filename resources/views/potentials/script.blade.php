@@ -493,6 +493,7 @@
                   loadDateTime()
 	                $("#pop-up-modal .modal-dialog").width('40%')
 	                $('#pop-up-modal').modal('toggle')
+                  $('.select2').select2()
 	            } else {
 	                swal(rData.msg, {icon:rData.icon})
 	            }

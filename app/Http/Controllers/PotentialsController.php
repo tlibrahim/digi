@@ -16,6 +16,8 @@ use App\ProfilingSocials;
 use App\ProfilingRef;
 use App\Feedbacks;
 
+use App\ProposalSelectedForm;
+use App\ProposalForms;
 use App\Levels;
 use App\Management;
 use App\PostTypes;
@@ -485,9 +487,20 @@ class PotentialsController extends Controller {
         if (request('proposal_id')) {
             $prop = Proposal::find(request('proposal_id'));
             $prop->update(request()->all());
+            if($prop->selectedForms()->count() > 0) {
+                foreach($prop->selectedForms as $selected_form) {
+                    $selected_form->delete();
+                }
+            }
+            foreach(request('form_ids') as $f) {
+                ProposalSelectedForm::create(['form_id' => $f, 'proposal_id' => $prop->id]);
+            }
             $key = 'Updated';
         } else {
             $prop = Proposal::create(request()->all());
+            foreach(request('form_ids') as $f) {
+                ProposalSelectedForm::create(['form_id' => $f, 'proposal_id' => $prop->id]);
+            }
             $key = 'Created';
         }
         
@@ -582,7 +595,8 @@ class PotentialsController extends Controller {
             case 'proposal':
                 $quot = $p->quotations()->where('is_collected' ,0)->first();
                 $departments = Department::where('is_proposal' ,1)->get();
-                return response(['status' => 'ok' ,'code' => view('potentials.pop-up.proposal' ,compact('p' ,'departments' ,'quot'))->render()]);
+                $proposal_forms = ProposalForms::all();
+                return response(['status' => 'ok' ,'code' => view('potentials.pop-up.proposal' ,compact('p' ,'departments' ,'quot' ,'proposal_forms'))->render()]);
                 break;
             case 'meeting-feedback':
                 return response(['status' => 'ok' ,'code' => view('potentials.pop-up.meeting-feedback' ,compact('p'))->render()]);
