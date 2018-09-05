@@ -61,6 +61,12 @@
 		</div>
 	</div>
 
+<div id="gallery-pop-up-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content" style="overflow:  hidden;"></div>
+  </div>
+</div>
+
 @endsection
 
 @section('scripts')

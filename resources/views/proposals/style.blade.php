@@ -109,4 +109,8 @@
     border-bottom:1px solid black;
     margin-bottom:5px
   }
+  .p-a:hover{
+    cursor: pointer;
+    color: gray
+  }
 </style>

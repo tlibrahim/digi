@@ -12,11 +12,11 @@ class Proposal extends Model
     	return $this->belongsTo('App\Quotation' ,'quotation_id');
     }
 
-    public function proposal() {
-    	return $this->hasOne('App\ProposalData' ,'proposal_id');
+    public function proposal_data() {
+    	return $this->hasMany('App\ProposalData' ,'proposal_id');
     }
 
     public function selectedForms() {
-    	return $this->hasOne('App\ProposalSelectedForm' ,'proposal_id');
+    	return $this->hasMany('App\ProposalSelectedForm' ,'proposal_id');
     }
 }

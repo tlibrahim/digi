@@ -1,5 +1,10 @@
+<script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
+<script src="{{ asset('js') }}/ckeditor-adapter.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+      @if(session()->has('success'))
+        swal('{{ session('success') }}' ,{icon:'success'})
+      @endif
       loadCurrentProposal()
       var $tabButtonItem = $('#tab-button li'),
       $tabSelect = $('#tab-select'),
@@ -59,8 +64,47 @@
         if (rData.status == 'ok') {
           $("#pop-up-modal .modal-content").html(rData.code)
           $("#pop-up-modal").modal('toggle')
+          $('.date').datepicker({autoclose:true,format:'dd/mm/yyyy'})
+          $('textarea').ckeditor()
         } else {
           swal('Sorry, can`t load this data now!' ,{icon:'error'})
+        }
+      }
+    })
+  }
+
+  function addMore(link) {
+    $.ajax({
+      url:link,
+      type:'GET',
+      dataType:'json',
+      success:function(rData) {
+        if (rData.status == 'ok') {
+          $("#form-data").append(rData.code)
+          $('.date').datepicker({autoclose:true,format:'dd/mm/yyyy'})
+          $('textarea').ckeditor()
+        } else {
+          swal('Sorry, can`t load this data now!' ,{icon:'error'})
+        }
+      }
+    })
+  }
+
+  function visitLink(link) {
+    window.open(link)
+  }
+
+  function loadGallery(url) {
+    $.ajax({
+      url:url,
+      dataType:'json',
+      type:'GET',
+      success:function(rData) {
+        if (rData.status == 'ok') {
+          $("#gallery-pop-up-modal .modal-content").html(rData.code)
+          $("#gallery-pop-up-modal").modal('toggle')
+        } else {
+          swal('Sorry We Can`t Load Gallery' ,{icon:'error'})
         }
       }
     })

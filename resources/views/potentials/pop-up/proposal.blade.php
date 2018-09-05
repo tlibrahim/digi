@@ -23,7 +23,7 @@
                 <label>Select Form</label>
                 <select style="width:100%" class="form-control select2" required name="form_ids[]" multiple>
                   @foreach($proposal_forms as $f)
-                  <option {{ in_array($f->id ,@$quot->proposal->selectedForms()->pluck('form_id')->toArray()) ? 'selected' : '' }} value="{{ @$f->id }}">{{ @$f->title }}</option>
+                  <option {{ in_array($f->id ,$selectedForms) ? 'selected' : '' }} value="{{ @$f->id }}">{{ @$f->title }}</option>
                   @endforeach
                 </select>
               </div>

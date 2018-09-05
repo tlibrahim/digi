@@ -86,9 +86,9 @@ class TasksController extends Controller
             foreach($task->positions as $in){
                 @$in->delete();
             }
-            foreach($task->services as $in){
-                @$in->delete();
-            }
+            // foreach($task->services as $in){
+            //     @$in->delete();
+            // }
     		$task->delete();
     	} catch (Exception $e) {
     		return back()->with('error' ,'Can`t delete this task ,it`s related to other data');
@@ -127,9 +127,9 @@ class TasksController extends Controller
             foreach($task->positions as $in){
                 @$in->delete();
             }
-            foreach($task->services as $in){
-                @$in->delete();
-            }
+            // foreach($task->services as $in){
+            //     @$in->delete();
+            // }
 
             $inputs = request('inputnames');
             if($inputs){

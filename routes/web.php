@@ -184,16 +184,29 @@ Route::middleware(['auth'])->group(function() {
 
 	Route::get('complete-proposals' ,'ProposalsController@index');
 	Route::get('complete-proposals-current' ,'ProposalsController@getCurrentProposals');
-	Route::get('complete-proposals/load-proposal/{id}' ,'ProposalsController@loadProposal');
+
+	Route::get('complete-proposals/load-gallery/{prop_id}/{form_id}' ,'ProposalsController@loadGallery');
+	Route::get('complete-proposals/load-proposal/{prop_id}/{form_id}' ,'ProposalsController@loadProposal');
+	Route::post('complete-proposals/add-proposal/{prop_id}/{form_id}' ,'ProposalsController@addProposal');
+
+	Route::get('complete-proposals/load-more-inputs/{prop_id}/{form_id}' ,'ProposalsController@addMore');
 
 
-	Route::get('read-permission' ,function() {
-		$data = \App\Permissions::all();
-		foreach($data as $d) {
-			echo "perm = Permissions::create(['trigger' => '".$d->trigger."' ,'name' => '".$d->name."' ,'trigger_category' => '".$d->trigger_category."']);".
-        		 "PermissionPositions::create(['position_id' => s_pos->id ,'permission_id' => perm->id]);</br>";
-		}
-	});
+	// Route::get('read-permission' ,function() {
+	// 	$data = \App\Permissions::all();
+	// 	foreach($data as $d) {
+	// 		echo "perm = Permissions::create(['trigger' => '".$d->trigger."' ,'name' => '".$d->name."' ,'trigger_category' => '".$d->trigger_category."']);".
+ //        		 "PermissionPositions::create(['position_id' => s_pos->id ,'permission_id' => perm->id]);</br>";
+	// 	}
+	// });
+
+	Route::get('proposal-forms' ,'ProposalFormsController@index');
+	Route::get('proposal-forms/create' ,'ProposalFormsController@create');
+	Route::post('proposal-forms/create' ,'ProposalFormsController@store');
+	Route::get('proposal-forms/edit/{id}' ,'ProposalFormsController@edit');
+	Route::post('proposal-forms/edit/{id}' ,'ProposalFormsController@update');
+	Route::get('proposal-forms/delete/{id}' ,'ProposalFormsController@destroy');
+	Route::get('proposal-forms/render/inputRow' ,'ProposalFormsController@renderInputRow');
 
 });
 

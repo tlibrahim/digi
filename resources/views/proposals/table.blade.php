@@ -18,9 +18,11 @@
           @endforeach
         </td>
         <td>
-          <button class="btn btn-default" onclick="loadPopUp('{{ url('complete-proposals/load-proposal/'.@$q->id) }}')">
-            <i class="si si-note"></i>
-          </button>
+          @foreach(@$q->selectedForms as $f)
+            <button class="btn btn-default" title="{{ @$f->form->title }}" onclick="loadPopUp('{{ url('complete-proposals/load-proposal/'.@$q->id.'/'.@$f->form->id) }}')">
+              <i class="{{ @$f->form->icon }}"></i>
+            </button>
+          @endforeach
         </td>
       </tr>
     @endforeach

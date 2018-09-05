@@ -173,6 +173,22 @@
                         </a>
                     </li> -->
                     <li class="nav-main-heading"><span class="sidebar-mini-hide">Data</span></li>
+                    @if( in_array('feedback_forms' ,$my_permissions_triggers) )
+                    <li>
+                        <a class="{{ Request::segment(1) == 'feedback-forms' ? 'active' : '' }}"
+                            href="{{ url('feedback-forms') }}">
+                            <i class="si si-badge"></i><span class="sidebar-mini-hide">Feedback Forms</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if( in_array('proposal_forms' ,$my_permissions_triggers) )
+                    <li>
+                        <a class="{{ Request::segment(1) == 'proposal-forms' ? 'active' : '' }}"
+                            href="{{ url('proposal-forms') }}">
+                            <i class="si si-badge"></i><span class="sidebar-mini-hide">Proposal Forms</span>
+                        </a>
+                    </li>
+                    @endif
                     @if( in_array('levels' ,$my_permissions_triggers) )
                     <li>
                         <a class="{{ Request::segment(1) == 'levels' ? 'active' : '' }}"
@@ -227,14 +243,6 @@
                         <a class="{{ Request::segment(1) == 'management' ? 'active' : '' }}"
                             href="{{ url('management') }}">
                             <i class="si si-badge"></i><span class="sidebar-mini-hide">Management</span>
-                        </a>
-                    </li>
-                    @endif
-                    @if( in_array('feedback_forms' ,$my_permissions_triggers) )
-                    <li>
-                        <a class="{{ Request::segment(1) == 'feedback-forms' ? 'active' : '' }}"
-                            href="{{ url('feedback-forms') }}">
-                            <i class="si si-badge"></i><span class="sidebar-mini-hide">Feedback Forms</span>
                         </a>
                     </li>
                     @endif

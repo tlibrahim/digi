@@ -103,7 +103,7 @@ class TaskManagerController extends Controller
 		    		TaskExecution::create($data);
 		    	} else {
 		    		try {
-		    			Storage::delete('public/task-manager/'.$oldValues->value);
+		    			Storage::delete('public/task-manager/'.str_replace(url('storage/task-manager').'/' ,'' ,$oldValues->value));
 		    		} catch (Exception $e) {
 		    			echo 'file not found';
 		    		}

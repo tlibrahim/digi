@@ -596,7 +596,12 @@ class PotentialsController extends Controller {
                 $quot = $p->quotations()->where('is_collected' ,0)->first();
                 $departments = Department::where('is_proposal' ,1)->get();
                 $proposal_forms = ProposalForms::all();
-                return response(['status' => 'ok' ,'code' => view('potentials.pop-up.proposal' ,compact('p' ,'departments' ,'quot' ,'proposal_forms'))->render()]);
+                if ($quot->proposal) {
+                    $selectedForms = $quot->proposal->selectedForms()->pluck('form_id')->toArray();
+                } else {
+                    $selectedForms = [];
+                }
+                return response(['status' => 'ok' ,'code' => view('potentials.pop-up.proposal' ,compact('p' ,'departments' ,'quot' ,'proposal_forms' ,'selectedForms'))->render()]);
                 break;
             case 'meeting-feedback':
                 return response(['status' => 'ok' ,'code' => view('potentials.pop-up.meeting-feedback' ,compact('p'))->render()]);
