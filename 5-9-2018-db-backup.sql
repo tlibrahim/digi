@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 28, 2018 at 01:19 PM
+-- Generation Time: Sep 05, 2018 at 08:47 AM
 -- Server version: 5.6.38
 -- PHP Version: 7.2.1
 
@@ -419,7 +419,7 @@ CREATE TABLE `crm_users` (
 
 INSERT INTO `crm_users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `http_cred`, `ip_address`, `added_by`, `edited_by`) VALUES
 (2, 'Ahmed Hesham', 'a.hesham@digi-sail.com', '$2y$10$aDDiCo3yA41K7mIRIq.4gu7DL4Mn7rJC21oov7ukA9WX6qOIS3s4.', 'wOOpB5wj6ezEj2RGLGpaZge1Dc3Eb4VoYRIsH7gHOOYBauSkur86JXYeIqtt', '2018-07-15 17:55:53', '2018-08-07 11:12:28', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36', '::1', NULL, 4),
-(4, 'Mohamed Hassan', 'mhassan@digi-sail.com', '$2y$10$RxDWFCC8oMDK4Vs7whUYe.393DT0GTR.9ZgaTfb7Lp9.RuTppabJW', '8CGtFiyy8FO2KaYwOfWrmzav6xWlpq6lzumMjAkZvNaEhrlUch3Q1vjjH8ER', '2018-07-18 09:24:22', '2018-08-08 06:34:07', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36', '::1', NULL, 4),
+(4, 'Mohamed Hassan', 'mhassan@digi-sail.com', '$2y$10$RxDWFCC8oMDK4Vs7whUYe.393DT0GTR.9ZgaTfb7Lp9.RuTppabJW', 'z0mPZj8b4moLlKYzuscirY5OAZLQBJjEJLq1jsWyUZijeu5FssoIX14kGTOi', '2018-07-18 09:24:22', '2018-08-08 06:34:07', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36', '::1', NULL, 4),
 (7, 'Mahmoud Omar', 'm.omar@digi-sail.com', '$2y$10$SS7RIXGMsh8x0z3yWGp0BuSQRqjTIXeVX7xVO5RCzbZCSU4Z7N3xK', 'nH6dcJ1reHW6aQZKtwRsMaNOC2Ig5WYaWpMtL4rmDfr4Lca7tGbePz5wnPVQ', '2018-07-19 10:36:43', '2018-07-25 21:47:38', NULL, NULL, NULL, NULL),
 (8, 'Mohamed Mohsen', 'm.mohsen@digi-sail.com', '$2y$10$2pn24AIV4fpJjhp6iQyeauLWN1biJ4JuXBQyu1yhTtO9eer2RJarS', 'bCwkQiaIOcjV67f2uITvz0bFqWpVwZHaIcWfLmi3WLRjmLNvIsFjWSj7nCzB', '2018-07-19 11:32:31', '2018-07-25 21:47:53', NULL, NULL, NULL, NULL),
 (9, 'Ibrahim', 'ibrahim@digi-sail.com', '$2y$10$6N5ygGC5sjL76vcv723as.4XyIE5Qi7DpgZ8lGFjLUzdDufnqN2mu', 'fjVG0eHXR1c847srOyR0s1ajcaLS8ZYFOVOT1IcffFuFXM6XBPUhGRTi4Snz', '2018-07-19 11:33:09', '2018-07-26 02:29:11', NULL, NULL, NULL, NULL),
@@ -688,7 +688,7 @@ INSERT INTO `customer_leads` (`id`, `company_id`, `project_id`, `company_user_id
 (208, 1, 1, 0, 4, 'Request a call', 'Hassan Mohamed Helmy Hosny', '201004340013', 'hassan.anwer26@gmail.com', NULL, '2018-07-24 18:35:08', '2018-07-24 18:35:08'),
 (209, 1, 1, 0, 4, 'Request a call', 'Alaa Assan', '201063387071', 'none@none', NULL, '2018-07-24 18:35:57', '2018-07-24 18:35:57'),
 (210, 1, 1, 0, 1, 'Request a call', 'Mohamed El-esnawy', '201001623406', 'none@none', NULL, '2018-07-24 18:36:23', '2018-07-24 18:36:23'),
-(211, 1, 1, 0, 2, 'Request a call', 'Hamed Grand Adv	none', '201007193003', 'none@none', NULL, '2018-07-24 18:36:43', '2018-07-24 18:36:43'),
+(211, 1, 1, 0, 2, 'Request a call', 'Hamed Grand Adv  none', '201007193003', 'none@none', NULL, '2018-07-24 18:36:43', '2018-07-24 18:36:43'),
 (212, 1, 1, 0, 2, 'Request a call', 'Nassim Wadea', '201223614360', 'none@none', NULL, '2018-07-24 18:37:16', '2018-07-24 18:37:16'),
 (213, 1, 1, 0, 4, 'Request a call', 'Mahmoud Al Kadi', '201015145008', 'mahmoud.kadi.87@gmail.com', NULL, '2018-07-24 18:37:36', '2018-07-24 18:37:36'),
 (214, 1, 1, 0, 1, 'Request a call', 'Emad Slama', '201271782936', 'none@none', NULL, '2018-07-24 18:37:58', '2018-07-24 18:37:58'),
@@ -1012,7 +1012,8 @@ INSERT INTO `feedbacks` (`id`, `potential_id`, `feedback_form_id`, `values`, `cr
 (224, 81, 18, 'proposal : <span>on</span>;', '2018-08-07 07:50:03', '2018-08-07 07:50:03'),
 (225, 81, 3, 'date time : <span>2018-07-17 13:45</span>;location : <span>qwd</span>;Feedback : <span>qwdqwdqwd</span>;', '2018-08-07 07:50:28', '2018-08-07 07:50:28'),
 (226, 35, 4, 'comment : <span>qwdqwd</span>;date time : <span>2018-07-04 06:30</span>;', '2018-08-07 08:00:03', '2018-08-07 08:00:03'),
-(227, 81, 13, 'quotation : <span>on</span>;', '2018-08-26 09:15:19', '2018-08-26 09:15:19');
+(227, 81, 13, 'quotation : <span>on</span>;', '2018-08-26 09:15:19', '2018-08-26 09:15:19'),
+(228, 35, 16, 'date : <span>21-09-2018</span>;comment : <span>qwdqwdqwd</span>;', '2018-09-02 06:53:31', '2018-09-02 06:53:31');
 
 -- --------------------------------------------------------
 
@@ -1202,11 +1203,11 @@ CREATE TABLE `lead__status__feedbacks` (
 --
 
 INSERT INTO `lead__status__feedbacks` (`id`, `name`, `form`, `created_at`, `updated_at`) VALUES
-(1, 'No Answer', '<div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Date</label> 	<div class=\"col-md-7\"> 		<input class=\"form-control form_datetime\" type=\"text\" id=\"date\" name=\"date\" placeholder=\"Date\"> 	</div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\"></label> 	<div class=\"col-md-7\"> 		<a class=\"form-control btn btn-sm btn-primary\" id=\"test\" data-dismiss=\"modal\" href=\"#\">Save</a> 	</div> </div>', NULL, NULL),
-(2, 'Call Back', '<div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Date</label> 	<div class=\"col-md-7\"> 		<input class=\"form-control form_datetime\" type=\"text\" id=\"date\" name=\"date\" placeholder=\"Date\"> 	</div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Description</label> 	<div class=\"col-md-7\"> 		<input class=\"form-control\" type=\"text\" id=\"decs\" name=\"decs\" placeholder=\"Description\"> 	</div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\"></label> 	<div class=\"col-md-7\"> 		<a class=\"form-control btn btn-sm btn-primary\" id=\"test\" data-dismiss=\"modal\" href=\"#\">Save</a> 	</div> </div>', NULL, NULL),
-(3, 'Wrong Number', '<div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Date</label> 	<div class=\"col-md-7\"> 		<input class=\"form-control form_datetime\" type=\"text\" id=\"date\" name=\"date\" placeholder=\"Date\"> 	</div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\"></label> 	<div class=\"col-md-7\"> 		<a class=\"form-control btn btn-sm btn-primary\" id=\"test\" data-dismiss=\"modal\" href=\"#\">Save</a> 	</div> </div>', NULL, NULL),
-(4, 'Not interested', '<div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Date</label> 	<div class=\"col-md-7\"> 		<input class=\"form-control form_datetime\" type=\"text\" id=\"date\" name=\"date\" placeholder=\"Date\"> 	</div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Description</label> 	<div class=\"col-md-7\"> 		<input class=\"form-control\" type=\"text\" id=\"decs\" name=\"decs\" placeholder=\"Description\"> 	</div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\"></label> 	<div class=\"col-md-7\"> 		<a class=\"form-control btn btn-sm btn-primary\" id=\"test\" data-dismiss=\"modal\" href=\"#\">Save</a> 	</div> </div>', NULL, NULL),
-(5, 'Another Project', '<div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Date</label> 	<div class=\"col-md-7\"> 		<input class=\"form-control form_datetime\" type=\"text\" id=\"date\" name=\"date\" placeholder=\"Date\"> 	</div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Description</label> 	<div class=\"col-md-7\"> 		<input class=\"form-control\" type=\"text\" id=\"decs\" name=\"decs\" placeholder=\"Description\"> 	</div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\"></label> 	<div class=\"col-md-7\"> 		<a class=\"form-control btn btn-sm btn-primary\" id=\"test\" data-dismiss=\"modal\" href=\"#\">Save</a> 	</div> </div>', NULL, NULL),
+(1, 'No Answer', '<div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Date</label>  <div class=\"col-md-7\">    <input class=\"form-control form_datetime\" type=\"text\" id=\"date\" name=\"date\" placeholder=\"Date\">   </div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\"></label>   <div class=\"col-md-7\">    <a class=\"form-control btn btn-sm btn-primary\" id=\"test\" data-dismiss=\"modal\" href=\"#\">Save</a>   </div> </div>', NULL, NULL),
+(2, 'Call Back', '<div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Date</label>  <div class=\"col-md-7\">    <input class=\"form-control form_datetime\" type=\"text\" id=\"date\" name=\"date\" placeholder=\"Date\">   </div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Description</label>   <div class=\"col-md-7\">    <input class=\"form-control\" type=\"text\" id=\"decs\" name=\"decs\" placeholder=\"Description\">  </div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\"></label>   <div class=\"col-md-7\">    <a class=\"form-control btn btn-sm btn-primary\" id=\"test\" data-dismiss=\"modal\" href=\"#\">Save</a>   </div> </div>', NULL, NULL),
+(3, 'Wrong Number', '<div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Date</label>   <div class=\"col-md-7\">    <input class=\"form-control form_datetime\" type=\"text\" id=\"date\" name=\"date\" placeholder=\"Date\">   </div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\"></label>   <div class=\"col-md-7\">    <a class=\"form-control btn btn-sm btn-primary\" id=\"test\" data-dismiss=\"modal\" href=\"#\">Save</a>   </div> </div>', NULL, NULL),
+(4, 'Not interested', '<div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Date</label>   <div class=\"col-md-7\">    <input class=\"form-control form_datetime\" type=\"text\" id=\"date\" name=\"date\" placeholder=\"Date\">   </div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Description</label>   <div class=\"col-md-7\">    <input class=\"form-control\" type=\"text\" id=\"decs\" name=\"decs\" placeholder=\"Description\">  </div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\"></label>   <div class=\"col-md-7\">    <a class=\"form-control btn btn-sm btn-primary\" id=\"test\" data-dismiss=\"modal\" href=\"#\">Save</a>   </div> </div>', NULL, NULL),
+(5, 'Another Project', '<div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Date</label>  <div class=\"col-md-7\">    <input class=\"form-control form_datetime\" type=\"text\" id=\"date\" name=\"date\" placeholder=\"Date\">   </div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\">Feedback Description</label>   <div class=\"col-md-7\">    <input class=\"form-control\" type=\"text\" id=\"decs\" name=\"decs\" placeholder=\"Description\">  </div> </div> <div class=\"form-group\"><label class=\"col-md-3 control-label\" for=\"example-hf-email\"></label>   <div class=\"col-md-7\">    <a class=\"form-control btn btn-sm btn-primary\" id=\"test\" data-dismiss=\"modal\" href=\"#\">Save</a>   </div> </div>', NULL, NULL),
 (6, 'Appointment', '', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -1424,7 +1425,16 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (111, '2018_08_15_143807_add_type_to_task_approve_comments_table', 23),
 (112, '2018_08_16_090522_add_is_director_declined_to_task_assigns_table', 24),
 (114, '2018_08_26_135503_add_is_proposal_completed_to_quotations_table', 25),
-(115, '2018_08_28_082512_add_is_complete_to_proposals_table', 26);
+(115, '2018_08_28_082512_add_is_complete_to_proposals_table', 26),
+(116, '2018_08_28_090106_create_proposal_datas_table', 27),
+(118, '2018_08_30_145311_create_proposal_forms_table', 28),
+(119, '2018_08_30_145312_create_proposal_selected_forms_table', 28),
+(121, '2018_09_03_083630_add_icon_to_proposal_forms_table', 29),
+(124, '2018_09_03_103349_remove_form_code_from_proposal_forms_table', 30),
+(125, '2018_09_03_103449_create_proposal_form_inputs_table', 30),
+(126, '2018_09_03_104146_add_cols_to_proposal_datas_table', 30),
+(127, '2018_09_03_135424_add_form_id_to_proposal_datas_table', 31),
+(128, '2018_09_04_142121_add_data_index_to_proposal_datas_table', 32);
 
 -- --------------------------------------------------------
 
@@ -1533,7 +1543,10 @@ INSERT INTO `permissions` (`id`, `trigger`, `name`, `created_at`, `updated_at`, 
 (81, 'collect_money', 'Collect Money', '2018-08-02 08:03:08', '2018-08-02 08:03:08', 'finance'),
 (82, 'task_approve', 'Task Approve', '2018-08-14 09:45:29', '2018-08-14 09:45:29', 'task_approve'),
 (83, 'director_task_approve', 'Director Task Approve', '2018-08-15 12:14:53', '2018-08-15 12:14:53', 'director_task_approve'),
-(84, 'complete_proposal', 'Complete Proposal', '2018-08-26 12:30:30', '2018-08-26 12:30:30', 'complete_proposal');
+(84, 'complete_proposal', 'Complete Proposal', '2018-08-26 12:30:30', '2018-08-26 12:30:30', 'complete_proposal'),
+(85, 'add', 'Add Proposal Form', '2018-09-03 06:45:56', '2018-09-03 06:45:56', 'proposal_forms'),
+(86, 'edit', 'Edit Proposal Form', '2018-09-03 06:46:38', '2018-09-03 06:46:38', 'proposal_forms'),
+(87, 'delete', 'Delete Proposal Form', '2018-09-03 06:46:46', '2018-09-03 06:46:46', 'proposal_forms');
 
 -- --------------------------------------------------------
 
@@ -1653,7 +1666,10 @@ INSERT INTO `permission_positions` (`id`, `permission_id`, `position_id`, `creat
 (139, 83, 15, '2018-08-16 08:05:18', '2018-08-16 08:05:18'),
 (140, 83, 9, '2018-08-16 08:05:18', '2018-08-16 08:05:18'),
 (142, 84, 15, '2018-08-28 06:48:27', '2018-08-28 06:48:27'),
-(143, 84, 35, '2018-08-28 06:48:27', '2018-08-28 06:48:27');
+(143, 84, 35, '2018-08-28 06:48:27', '2018-08-28 06:48:27'),
+(144, 85, 15, '2018-09-03 06:45:56', '2018-09-03 06:45:56'),
+(145, 86, 15, '2018-09-03 06:46:38', '2018-09-03 06:46:38'),
+(146, 87, 15, '2018-09-03 06:46:46', '2018-09-03 06:46:46');
 
 -- --------------------------------------------------------
 
@@ -2090,7 +2106,156 @@ INSERT INTO `proposals` (`id`, `created_at`, `updated_at`, `departement_id`, `qu
 (35, '2018-08-07 07:57:31', '2018-08-07 07:57:31', 6, 38, 0),
 (36, '2018-08-07 08:00:48', '2018-08-07 08:00:48', 5, 15, 0),
 (37, '2018-08-26 10:57:08', '2018-08-26 10:57:29', 6, 35, 0),
-(38, '2018-08-26 12:21:13', '2018-08-26 12:21:13', 5, 34, 0);
+(38, '2018-08-26 12:21:13', '2018-08-26 12:21:13', 5, 34, 0),
+(39, '2018-08-30 09:34:36', '2018-08-30 09:35:04', 5, 41, 0),
+(40, '2018-09-03 10:34:34', '2018-09-03 10:34:34', 3, 36, 0),
+(41, '2018-09-03 10:34:41', '2018-09-03 10:34:41', 3, 25, 0),
+(42, '2018-09-03 10:34:49', '2018-09-03 10:34:49', 3, 39, 0),
+(43, '2018-09-03 10:35:02', '2018-09-03 10:35:02', 3, 26, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `proposal_datas`
+--
+
+CREATE TABLE `proposal_datas` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `input` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `value` longtext COLLATE utf8mb4_unicode_ci,
+  `proposal_id` int(10) UNSIGNED NOT NULL,
+  `form_id` int(11) DEFAULT NULL,
+  `data_index` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `proposal_datas`
+--
+
+INSERT INTO `proposal_datas` (`id`, `created_at`, `updated_at`, `input`, `type`, `value`, `proposal_id`, `form_id`, `data_index`) VALUES
+(1, '2018-09-03 11:35:37', '2018-09-04 12:31:28', 'content', 'data', '<p>dummy text for testing &amp; debugging mode dummy text for testing &amp; debugging mode dummy text for testing &amp; debugging mode dummy text for testing &amp; debugging mode dummy text for testing &amp; debugging mode dummy text for testing &amp; debugging mode dummy text for testing &amp; debugging mode</p>\r\n', 32, 3, 0),
+(2, '2018-09-03 11:35:37', '2018-09-03 12:15:28', 'image', 'file', 'http://localhost:8888/admin/public/storage/proposal-manager/1535984128-bgoJld0t.jpeg', 32, 3, 0),
+(3, '2018-09-03 12:16:26', '2018-09-03 12:16:26', 'introduction', 'data', 'funny intro', 32, 6, 0),
+(4, '2018-09-03 12:16:26', '2018-09-03 12:16:26', 'usp', 'data', 'funny usp', 32, 6, 0),
+(5, '2018-09-03 12:16:26', '2018-09-03 12:16:26', 'mission', 'data', 'funny mission', 32, 6, 0),
+(6, '2018-09-03 12:16:26', '2018-09-03 12:16:26', 'season_factor', 'data', 'funny factor', 32, 6, 0),
+(7, '2018-09-03 12:16:26', '2018-09-03 12:16:26', 'rational', 'data', 'funny rational', 32, 6, 0),
+(8, '2018-09-03 12:16:26', '2018-09-03 12:16:26', 'concept', 'data', 'funny concept', 32, 6, 0),
+(9, '2018-09-04 12:29:53', '2018-09-04 12:29:53', 'phase_name', 'data', 'phase one', 33, 1, 0),
+(10, '2018-09-04 12:29:53', '2018-09-04 13:16:25', 'phase_name', 'data', 'phase tow editable', 33, 1, 1),
+(11, '2018-09-04 12:29:53', '2018-09-04 12:29:53', 'start', 'data', '01/09/2018', 33, 1, 0),
+(12, '2018-09-04 12:29:53', '2018-09-04 13:16:50', 'start', 'data', '09/10/2018', 33, 1, 1),
+(13, '2018-09-04 12:29:53', '2018-09-04 13:16:25', 'end', 'data', '01/09/2018', 33, 1, 0),
+(14, '2018-09-04 12:29:53', '2018-09-04 13:16:25', 'end', 'data', '10/10/2018', 33, 1, 1),
+(15, '2018-09-04 12:29:53', '2018-09-04 13:16:25', 'strategy_details', 'data', '<p>phase one</p>\r\n', 33, 1, 0),
+(16, '2018-09-04 12:29:53', '2018-09-04 13:16:25', 'strategy_details', 'data', '<p>phase tow editable</p>\r\n', 33, 1, 1),
+(17, '2018-09-04 12:31:28', '2018-09-04 12:31:28', 'content', 'data', '<p>just funny test</p>\r\n', 32, 3, 1),
+(18, '2018-09-04 12:31:28', '2018-09-04 12:31:28', 'image', 'file', 'http://localhost:8888/admin/public/storage/proposal-manager/1536071488-4u9OG9mz.jpg', 32, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `proposal_forms`
+--
+
+CREATE TABLE `proposal_forms` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `icon` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `susspend` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `proposal_forms`
+--
+
+INSERT INTO `proposal_forms` (`id`, `title`, `created_at`, `updated_at`, `icon`, `susspend`) VALUES
+(1, 'Phases', NULL, '2018-09-03 10:25:44', 'fa fa-line-chart', 0),
+(2, 'Target Market', NULL, '2018-09-03 10:24:20', 'fa fa-bar-chart', 0),
+(3, 'Post Sample', '2018-09-03 07:18:43', '2018-09-03 10:27:40', 'fa fa-podcast', 0),
+(6, 'Introduction', '2018-09-03 09:18:20', '2018-09-03 10:26:54', 'fa fa-ellipsis-h', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `proposal_form_inputs`
+--
+
+CREATE TABLE `proposal_form_inputs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `in_add_more` tinyint(1) NOT NULL DEFAULT '0',
+  `input_title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `input_name_id` int(10) UNSIGNED NOT NULL,
+  `proposal_form_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `proposal_form_inputs`
+--
+
+INSERT INTO `proposal_form_inputs` (`id`, `in_add_more`, `input_title`, `input_name_id`, `proposal_form_id`, `created_at`, `updated_at`) VALUES
+(23, 0, 'job', 3, 2, '2018-09-03 10:24:20', '2018-09-03 10:24:20'),
+(24, 0, 'family status', 3, 2, '2018-09-03 10:24:20', '2018-09-03 10:24:20'),
+(25, 0, 'life style', 3, 2, '2018-09-03 10:24:20', '2018-09-03 10:24:20'),
+(26, 0, 'what else', 3, 2, '2018-09-03 10:24:20', '2018-09-03 10:24:20'),
+(27, 0, 'headline', 3, 2, '2018-09-03 10:24:20', '2018-09-03 10:24:20'),
+(28, 1, 'phase name', 3, 1, '2018-09-03 10:25:44', '2018-09-03 10:25:44'),
+(29, 1, 'start', 8, 1, '2018-09-03 10:25:44', '2018-09-03 10:25:44'),
+(30, 1, 'end', 8, 1, '2018-09-03 10:25:44', '2018-09-03 10:25:44'),
+(31, 1, 'strategy details', 4, 1, '2018-09-03 10:25:44', '2018-09-03 10:25:44'),
+(32, 0, 'introduction', 3, 6, '2018-09-03 10:26:54', '2018-09-03 10:26:54'),
+(33, 0, 'usp', 3, 6, '2018-09-03 10:26:54', '2018-09-03 10:26:54'),
+(34, 0, 'mission', 3, 6, '2018-09-03 10:26:54', '2018-09-03 10:26:54'),
+(35, 0, 'season factor', 3, 6, '2018-09-03 10:26:54', '2018-09-03 10:26:54'),
+(36, 0, 'rational', 3, 6, '2018-09-03 10:26:54', '2018-09-03 10:26:54'),
+(37, 0, 'concept', 3, 6, '2018-09-03 10:26:54', '2018-09-03 10:26:54'),
+(45, 1, 'image', 5, 3, '2018-09-04 12:22:42', '2018-09-04 12:22:42'),
+(46, 1, 'content', 4, 3, '2018-09-04 12:22:42', '2018-09-04 12:22:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `proposal_selected_forms`
+--
+
+CREATE TABLE `proposal_selected_forms` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `form_id` int(10) UNSIGNED NOT NULL,
+  `proposal_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `proposal_selected_forms`
+--
+
+INSERT INTO `proposal_selected_forms` (`id`, `form_id`, `proposal_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 39, '2018-08-30 13:06:43', '2018-08-30 13:06:43'),
+(2, 2, 39, '2018-08-30 13:06:43', '2018-08-30 13:06:43'),
+(8, 2, 42, '2018-09-03 10:34:49', '2018-09-03 10:34:49'),
+(9, 3, 42, '2018-09-03 10:34:49', '2018-09-03 10:34:49'),
+(10, 3, 32, '2018-09-03 10:34:56', '2018-09-03 10:34:56'),
+(11, 6, 32, '2018-09-03 10:34:56', '2018-09-03 10:34:56'),
+(12, 1, 43, '2018-09-03 10:35:02', '2018-09-03 10:35:02'),
+(13, 2, 43, '2018-09-03 10:35:02', '2018-09-03 10:35:02'),
+(14, 2, 41, '2018-09-03 10:35:31', '2018-09-03 10:35:31'),
+(15, 3, 41, '2018-09-03 10:35:31', '2018-09-03 10:35:31'),
+(16, 1, 33, '2018-09-03 10:35:37', '2018-09-03 10:35:37'),
+(17, 6, 33, '2018-09-03 10:35:37', '2018-09-03 10:35:37'),
+(18, 2, 40, '2018-09-03 10:35:49', '2018-09-03 10:35:49'),
+(19, 6, 40, '2018-09-03 10:35:49', '2018-09-03 10:35:49'),
+(20, 2, 38, '2018-09-03 10:35:55', '2018-09-03 10:35:55'),
+(21, 3, 38, '2018-09-03 10:35:55', '2018-09-03 10:35:55'),
+(22, 2, 35, '2018-09-03 10:36:00', '2018-09-03 10:36:00'),
+(23, 6, 35, '2018-09-03 10:36:00', '2018-09-03 10:36:00');
 
 -- --------------------------------------------------------
 
@@ -2162,7 +2327,8 @@ INSERT INTO `quotations` (`id`, `company_id`, `total`, `created_at`, `updated_at
 (37, 28, 50000.00, '2018-08-07 07:53:08', '2018-08-07 07:54:22', 1, 1, 0.00, '2018-08-07', 0, 0),
 (38, 28, 50000.00, '2018-08-07 07:54:47', '2018-08-07 07:54:47', 0, 0, 0.00, NULL, 0, 0),
 (39, 81, 50000.00, '2018-08-26 09:15:48', '2018-08-26 09:15:48', 0, 0, 0.00, NULL, 0, 0),
-(40, 24, 5000.00, '2018-08-26 11:05:01', '2018-08-26 11:05:30', 0, 1, 0.00, '2018-08-31', 0, 0);
+(40, 24, 5000.00, '2018-08-26 11:05:01', '2018-08-26 11:05:30', 0, 1, 0.00, '2018-08-31', 0, 0),
+(41, 1, 30000.00, '2018-08-30 09:30:01', '2018-08-30 09:30:01', 0, 0, 0.00, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -2225,7 +2391,8 @@ INSERT INTO `quotation_services` (`id`, `service_id`, `quantity`, `quotation_id`
 (173, 1, '3', 27, '2018-08-08 09:31:53', '2018-08-08 09:31:53'),
 (174, 1, '3', 39, '2018-08-26 09:15:48', '2018-08-26 09:15:48'),
 (176, 1, '60', 35, '2018-08-26 11:00:27', '2018-08-26 11:00:27'),
-(178, 9, '6', 40, '2018-08-26 11:05:30', '2018-08-26 11:05:30');
+(178, 9, '6', 40, '2018-08-26 11:05:30', '2018-08-26 11:05:30'),
+(179, 1, '30', 41, '2018-08-30 09:30:01', '2018-08-30 09:30:01');
 
 -- --------------------------------------------------------
 
@@ -2728,7 +2895,6 @@ INSERT INTO `task_inputs` (`id`, `task_id`, `input_name_id`, `input_title`, `cre
 (38, 20, 6, 'Upload Final Photos', '2018-07-24 08:04:02', '2018-07-24 08:04:02'),
 (39, 21, 6, 'Upload Materials', '2018-07-24 08:07:17', '2018-07-24 08:07:17'),
 (40, 21, 6, 'Upload Copy', '2018-07-24 08:07:17', '2018-07-24 08:07:17'),
-(42, 19, 5, 'Upload Sizes', '2018-07-24 08:09:07', '2018-07-24 08:09:07'),
 (43, 22, 6, 'Upload Stationary', '2018-07-24 08:10:39', '2018-07-24 08:10:39'),
 (45, 23, 6, 'Upload Sizes', '2018-07-24 08:13:07', '2018-07-24 08:13:07'),
 (46, 24, 6, 'Upload Design', '2018-07-24 08:14:02', '2018-07-24 08:14:02'),
@@ -3515,6 +3681,35 @@ ALTER TABLE `proposals`
   ADD KEY `proposals_quotation_id_foreign` (`quotation_id`);
 
 --
+-- Indexes for table `proposal_datas`
+--
+ALTER TABLE `proposal_datas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `proposal_datas_proposal_id_foreign` (`proposal_id`);
+
+--
+-- Indexes for table `proposal_forms`
+--
+ALTER TABLE `proposal_forms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `proposal_form_inputs`
+--
+ALTER TABLE `proposal_form_inputs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `proposal_form_inputs_input_name_id_foreign` (`input_name_id`),
+  ADD KEY `proposal_form_inputs_proposal_form_id_foreign` (`proposal_form_id`);
+
+--
+-- Indexes for table `proposal_selected_forms`
+--
+ALTER TABLE `proposal_selected_forms`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `proposal_selected_forms_form_id_foreign` (`form_id`),
+  ADD KEY `proposal_selected_forms_proposal_id_foreign` (`proposal_id`);
+
+--
 -- Indexes for table `questions__categories`
 --
 ALTER TABLE `questions__categories`
@@ -3778,7 +3973,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `feedbacks`
 --
 ALTER TABLE `feedbacks`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
 
 --
 -- AUTO_INCREMENT for table `feedback_forms`
@@ -3862,19 +4057,19 @@ ALTER TABLE `meeting_feedbacks`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `permission_positions`
 --
 ALTER TABLE `permission_positions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `plans`
@@ -3976,7 +4171,31 @@ ALTER TABLE `promote_statuses`
 -- AUTO_INCREMENT for table `proposals`
 --
 ALTER TABLE `proposals`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT for table `proposal_datas`
+--
+ALTER TABLE `proposal_datas`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `proposal_forms`
+--
+ALTER TABLE `proposal_forms`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `proposal_form_inputs`
+--
+ALTER TABLE `proposal_form_inputs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT for table `proposal_selected_forms`
+--
+ALTER TABLE `proposal_selected_forms`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `questions__categories`
@@ -3988,13 +4207,13 @@ ALTER TABLE `questions__categories`
 -- AUTO_INCREMENT for table `quotations`
 --
 ALTER TABLE `quotations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `quotation_services`
 --
 ALTER TABLE `quotation_services`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
 
 --
 -- AUTO_INCREMENT for table `quotation_service_quantities`
@@ -4289,6 +4508,26 @@ ALTER TABLE `project__unit__types`
 ALTER TABLE `proposals`
   ADD CONSTRAINT `proposals_departement_id_foreign` FOREIGN KEY (`departement_id`) REFERENCES `departments` (`id`),
   ADD CONSTRAINT `proposals_quotation_id_foreign` FOREIGN KEY (`quotation_id`) REFERENCES `quotations` (`id`);
+
+--
+-- Constraints for table `proposal_datas`
+--
+ALTER TABLE `proposal_datas`
+  ADD CONSTRAINT `proposal_datas_proposal_id_foreign` FOREIGN KEY (`proposal_id`) REFERENCES `proposals` (`id`);
+
+--
+-- Constraints for table `proposal_form_inputs`
+--
+ALTER TABLE `proposal_form_inputs`
+  ADD CONSTRAINT `proposal_form_inputs_input_name_id_foreign` FOREIGN KEY (`input_name_id`) REFERENCES `input_names` (`id`),
+  ADD CONSTRAINT `proposal_form_inputs_proposal_form_id_foreign` FOREIGN KEY (`proposal_form_id`) REFERENCES `proposal_forms` (`id`);
+
+--
+-- Constraints for table `proposal_selected_forms`
+--
+ALTER TABLE `proposal_selected_forms`
+  ADD CONSTRAINT `proposal_selected_forms_form_id_foreign` FOREIGN KEY (`form_id`) REFERENCES `proposal_forms` (`id`),
+  ADD CONSTRAINT `proposal_selected_forms_proposal_id_foreign` FOREIGN KEY (`proposal_id`) REFERENCES `proposals` (`id`);
 
 --
 -- Constraints for table `quotations`
