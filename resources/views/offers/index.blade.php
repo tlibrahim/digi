@@ -124,6 +124,7 @@
 				if (rData.status == 'ok') {
 					$("#pop-up-modal .modal-content").html(rData.code)
 					$("#pop-up-modal").modal('toggle')
+					$('.select2').select2()
 				} else {
 					swal({text:'There is some error' ,icon:'error'})
 				}
@@ -131,12 +132,16 @@
 		})
 	}
 
-	function loadPlanOrService(event) {
-		var type = $(event.target).val()
+	function loadPlanOrService(event ,id) {
+		var type = $(event.target).val() ,
+			link = '{{ url('offers/render') }}/'+type
+		if (id != undefined) {
+			link += '/'+id
+		}
 		$.ajax({
 			dataType:'json',
 			type:'GET',
-			url:'{{ url('offers/render') }}/'+type,
+			url:link,
 			success:function(rData) {
 				if (rData.status == 'ok') {
 					$("#plans-or-services").html(rData.code)

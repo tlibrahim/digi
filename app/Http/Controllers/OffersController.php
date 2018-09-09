@@ -34,15 +34,25 @@ class OffersController extends Controller
 	    }
     }
 
-    public function renderPlanOrServices($type) {
+    public function renderPlanOrServices($type ,$offer_id = null) {
+    	$offer_plans = [];
+    	$offer = null;
+    	if ($offer_id) {
+    		try {
+    			$offer = Offers::findOrFail($offer_id);
+    			$offer_plans = $offer->plans()->pluck('plan_id')->toArray();
+    		} catch (Exception $e) {
+    			return response(['status' => 'error']);
+    		}
+    	}
     	try {
 	    	if ($type == 'plans') {
 	    		$plans = Plans::where('status' ,1)->where('is_deleted' ,0)->get();
-	    		return response(['status' => 'ok' ,'code' => view('offers.renders.plan' ,compact('plans'))->render()]);
+	    		return response(['status' => 'ok' ,'code' => view('offers.renders.plan' ,compact('plans' ,'offer_plans'))->render()]);
 	    	} else {
 	    		$services = Services::all();
 	    		$is_add_more = true;
-	    		return response(['status' => 'ok' ,'code' => view('offers.renders.services' ,compact('services' ,'is_add_more'))->render()]);
+	    		return response(['status' => 'ok' ,'code' => view('offers.renders.services' ,compact('services' ,'is_add_more' ,'offer'))->render()]);
 	    	}
 	    } catch (Exception $e) {
 	    	return response(['status' => 'error']);
@@ -53,7 +63,8 @@ class OffersController extends Controller
     	try {
 	    	$services = Services::all();
 	    	$is_add_more = false;
-	    	return response(['status' => 'ok' ,'code' => view('offers.renders.services' ,compact('services' ,'is_add_more'))->render()]);
+	    	$offer = null;
+	    	return response(['status' => 'ok' ,'code' => view('offers.renders.services' ,compact('services' ,'is_add_more' ,'offer'))->render()]);
 	    } catch (Exception $e) {
 	    	return response(['status' => 'error']);
 	    }

@@ -212,7 +212,7 @@ Route::middleware(['auth'])->group(function() {
 
 	Route::get('offers' ,'OffersController@index');
 	Route::get('offers/load-offer/{id?}' ,'OffersController@loadOffer');
-	Route::get('offers/render/{type}' ,'OffersController@renderPlanOrServices');
+	Route::get('offers/render/{type}/{id?}' ,'OffersController@renderPlanOrServices');
 	Route::get('offers/more-service' ,'OffersController@moreServices');
 	Route::get('offers/active/{id}' ,'OffersController@statusChange');
 	Route::post('offers/add' ,'OffersController@add');
