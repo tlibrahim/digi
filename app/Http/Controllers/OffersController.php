@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Offers;
 use App\OfferPlans;
 use App\OfferServices;
+use App\OffersHistory;
+use App\OfferPlansHistory;
+use App\OfferServicesHistory;
 use App\Plans;
 use App\Services;
 
@@ -86,26 +89,77 @@ class OffersController extends Controller
     	try {
 	    	$offer = Offers::create(request()->all());
 	    	if ( request('offer_type') == 'plans' ) {
-	    		try {
-		    		foreach(request('plans') as $p) {
+		    	foreach(request('plans') as $p) {
+		    		try {
 		    			OfferPlans::create(['offer_id' => $offer->id ,'plan_id' => $p]);
-		    		}
-		    	} catch (Exception $e) {
-		    		echo 'no plan(s) selected';
+		    		} catch (Exception $e) {
+				    	echo 'no plan(s) selected';
+				    }
 		    	}
+		    	
 	    	} else {
-	    		try {
-		    		foreach(request('services') as $key => $ser_id) {
+	    		foreach(request('services') as $key => $ser_id) {
+	    			try {
 		    			OfferServices::create(['offer_id' => $offer->id ,'service_id' => $ser_id ,'quantity' => request('quantites')[$key] ?:0]);
-		    		}
-		    	} catch (Exception $e) {
-		    		echo 'no service(s) selected';
-		    	}
+			    	} catch (Exception $e) {
+			    		echo 'no service(s) selected';
+			    	}
+			    }
 	    	}
 	    	return response(['status' => 'ok' ,'msg' => 'Offer Created Successfully!' ,'icon' => 'success']);
 	    } catch (Exception $e) {
             return response(['status' => 'error']);
         }
+    }
+
+    public function edit($id) {
+    	try {
+    		//this part of code to get the current values of offer object then store to history
+    		$data = Offers::findOrFail($id)->toArray();
+    		$data['offer_id'] = $id;
+    		unset($data['id']);
+    		OffersHistory::create($data);
+    		//end of history part
+
+    		$offer = Offers::findOrFail($id);
+    		$offer->update(request()->all());
+
+    		//this 2 loops to store plans & services for this object to histroy then delete from original table
+    		foreach($offer->plans as $plan) {
+    			OfferPlansHistory::create(['offer_id' => $id ,'plan_id' => @$plan->plan_id]);
+    			$plan->delete();
+    		}
+    		foreach($offer->services as $service) {
+    			OfferServicesHistory::create(['offer_id' => $id ,'service_id' => @$service->service_id ,'quantity' => @$service->quantity]);
+    			$service->delete();
+    		}
+    		//end fo plans & services history
+
+    		//this area to handle incomd=e request for plans & services to store in it's original tables
+    		if ( request('offer_type') == 'plans' ) {
+		    	foreach(request('plans') as $p) {
+		    		try {
+		    			OfferPlans::create(['offer_id' => $offer->id ,'plan_id' => $p]);
+		    		} catch (Exception $e) {
+				    	echo 'no plan(s) selected';
+				    }
+		    	}
+		    	
+	    	} else {
+	    		foreach(request('services') as $key => $ser_id) {
+	    			try {
+		    			OfferServices::create(['offer_id' => $offer->id ,'service_id' => $ser_id ,'quantity' => request('quantites')[$key] ?:0]);
+			    	} catch (Exception $e) {
+			    		echo 'no service(s) selected';
+			    	}
+			    }
+	    	}
+	    	//end
+
+    		return response(['status' => 'ok' ,'msg' => 'Offer Updated Successfully!' ,'icon' => 'success']);
+    	} catch (Exception $e) {
+    		return response(['status' => 'error']);
+    	}
     }
 
     public function delete($id) {

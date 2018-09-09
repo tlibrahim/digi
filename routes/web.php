@@ -216,6 +216,7 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('offers/more-service' ,'OffersController@moreServices');
 	Route::get('offers/active/{id}' ,'OffersController@statusChange');
 	Route::post('offers/add' ,'OffersController@add');
+	Route::post('offers/edit/{id}' ,'OffersController@edit');
 	Route::get('offers/delete/{id}' ,'OffersController@delete');
 
 });
