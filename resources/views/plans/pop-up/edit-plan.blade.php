@@ -13,6 +13,17 @@
 					</div>
 					<div class="form-group col-md-12">
 						<div class="col-md-12">
+							<label>Industry</label>
+							<select required name="industry_id" class="form-control">
+								<option value="0">General</option>
+								@foreach($industries as $in)
+								<option {{ $plan->industry_id == @$in->id ? 'selected' : '' }} value="{{ @$in->id }}">{{ @$in->name }}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<div class="col-md-12">
 							<label>Description</label>
 							<textarea required placeholder="Description" name="description" class="form-control">{{ @$plan->description }}</textarea>
 						</div>

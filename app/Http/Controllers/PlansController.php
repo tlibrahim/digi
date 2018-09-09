@@ -7,6 +7,7 @@ use App\PlanServices;
 use App\Services;
 use App\PlansHistory;
 use App\PlanServicesHistory;
+use App\Industries;
 
 use Exception;
 
@@ -20,24 +21,25 @@ class PlansController extends Controller
         if ( \App\Http\Controllers\UsersController::myPermitedTrigger('plans') == 0 ) {
             return redirect('/')->with('msg' ,'You Are Not Authorized To Visit This Page');
         }
-    	$plans = Plans::all();
+    	$plans = Plans::where('is_deleted' ,0)->get();
     	return view('plans.index' ,compact('plans'));
     }
 
     public function renderPlans() {
-        $plans = Plans::all();
+        $plans = Plans::where('is_deleted' ,0)->get();
         return view('plans.render-data-table' ,compact('plans'))->render();
     }
 
     public function renderLoaders($key ,$id = null) {
-    	$services = Services::all();
+        $services   = Services::all();
+    	$industries = Industries::all();
     	switch ($key) {
     		case 'edit':
     			$plan = Plans::find($id);
-    			$code = view('plans.pop-up.edit-plan' ,compact('services' ,'plan'))->render();
+    			$code = view('plans.pop-up.edit-plan' ,compact('services' ,'plan' ,'industries'))->render();
     			break;
     		default:
-    			$code = view('plans.pop-up.plan' ,compact('services'))->render();
+    			$code = view('plans.pop-up.plan' ,compact('services' ,'industries'))->render();
     			break;
     	}
     	return response(['code' => $code ,'status' => 'ok']);
@@ -92,7 +94,7 @@ class PlansController extends Controller
             }
         }
         try {
-            $plan->delete();
+            $plan->update(['is_deleted' => 1]);
         } catch (Exception $e) {
             return back()->with('error' ,'Can`t delete this plan ,it`s related to other data');
         }
@@ -144,5 +146,17 @@ class PlansController extends Controller
             }
         }
         return response(['status' => 'ok' ,'code' => $this->renderPlans() ,'msg' => 'Plan Updated Successfully!']);
+    }
+
+    public function statusChange($id) {
+        try {
+            $plan = Plans::findOrFail($id);
+            $msg = $plan->status == 1 ? 'Plan '.$plan->title.' Disabled' : 'Plan '.$plan->title.' Activated';
+            $icon = $plan->status == 1 ? 'warning' : 'success';
+            $plan->update(['status' => $plan->status == 1 ? 0 : 1]);
+            return response(['status' => 'ok' ,'msg' => $msg ,'icon' => $icon]);
+        } catch (Exception $e) {
+            return response(['status' => 'error']);
+        }
     }
 }

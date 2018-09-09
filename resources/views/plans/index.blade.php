@@ -43,21 +43,31 @@
 	              	<table id="example1" class="table table-bordered table-striped">
 		                <thead>
 		                <tr>
-		                  <th width="30%">Title</th>
+		                  <th>ID</th>
+		                  <th width="25%">Title</th>
 		                  <th>Price</th>
+		                  <th>Industry</th>
 		                  <th>Services</th>
+		                  <th>Status</th>
 		                  <th>Actions</th>
 		                </tr>
 		                </thead>
 		                <tbody>
 		                	@foreach($plans as $p)
 		                	<tr>
+		                		<td>{{ @$p->id }}</td>
 		                		<td>{{ @$p->title }}</td>
 		                		<td>{{ @$p->price }}</td>
+		                		<td>{{ @$p->industry_id == 0 ? 'General' : @$p->industry->name }}</td>
 		                		<td>
 		                			@foreach(@$p->services as $s)
 		                			<span class="label label-success">{{ @$s->service->name }}</span>
 		                			@endforeach
+		                		</td>
+		                		<td>
+		                			<label class="css-input switch switch-sm switch-primary">
+	                                    <input onclick='statusChange("{{ url('plans/active/'.@$p->id) }}")' type="checkbox" id="login2-remember-me" {{ @$p->status == 1 ? 'checked' : '' }} name="login2-remember-me"><span></span>
+	                                  </label>
 		                		</td>
 		                		<td>
                                     @if ( \App\Http\Controllers\UsersController::myPermitedTrigger('plans' ,'edit') == 1 )
@@ -182,6 +192,21 @@
 		  } else {
 		    swal("Your plan is safe!");
 		  }
+		})
+	}
+
+	function statusChange(link) {
+		$.ajax({
+			dataType:'json',
+			type:'GET',
+			url:link,
+			success:function(rData) {
+				if (rData.status == 'ok') {
+					swal(rData.msg ,{icon:rData.icon})
+				} else {
+					swal("There is some error" ,{icon:'error'});
+				}
+			}
 		})
 	}
 </script>

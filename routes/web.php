@@ -142,6 +142,7 @@ Route::middleware(['auth'])->group(function() {
 	Route::post('plans/edit/{id}' ,'PlansController@edit');
 	Route::get('plans/delete/{id}' ,'PlansController@delete');
 	Route::get('plans-delete-service/{id}' ,'PlansController@deleteService');
+	Route::get('plans/active/{id}' ,'PlansController@statusChange');
 
 	Route::get('contracts' ,'ContractsController@index');
 	Route::post('add-contract' ,'ContractsController@add');
@@ -207,6 +208,15 @@ Route::middleware(['auth'])->group(function() {
 	Route::post('proposal-forms/edit/{id}' ,'ProposalFormsController@update');
 	Route::get('proposal-forms/delete/{id}' ,'ProposalFormsController@destroy');
 	Route::get('proposal-forms/render/inputRow' ,'ProposalFormsController@renderInputRow');
+
+
+	Route::get('offers' ,'OffersController@index');
+	Route::get('offers/load-offer/{id?}' ,'OffersController@loadOffer');
+	Route::get('offers/render/{type}' ,'OffersController@renderPlanOrServices');
+	Route::get('offers/more-service' ,'OffersController@moreServices');
+	Route::get('offers/active/{id}' ,'OffersController@statusChange');
+	Route::post('offers/add' ,'OffersController@add');
+	Route::get('offers/delete/{id}' ,'OffersController@delete');
 
 });
 

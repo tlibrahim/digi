@@ -160,6 +160,14 @@
                         </a>
                     </li>
                     @endif
+                    @if( in_array('offers' ,$my_permissions_triggers) )
+                    <li>
+                        <a class="{{ Request::segment(1) == 'offers' ? 'active' : '' }}"
+                            href="{{ url('offers') }}">
+                            <i class="si si-badge"></i><span class="sidebar-mini-hide">Offers</span>
+                        </a>
+                    </li>
+                    @endif
                     <!-- <li>
                         <a class="{{ Request::segment(1) == 'subservices' ? 'active' : '' }}"
                             href="{{ url('subservices') }}">
