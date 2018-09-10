@@ -219,6 +219,17 @@ Route::middleware(['auth'])->group(function() {
 	Route::post('offers/edit/{id}' ,'OffersController@edit');
 	Route::get('offers/delete/{id}' ,'OffersController@delete');
 
+	Route::resource('connection-references' ,'ConnectionReferencesController');
+
+	Route::get('connections' ,'ConnectionController@index');
+	Route::get('connections/delete/{id}' ,'ConnectionController@delete');
+	Route::get('connections/pop-up-loader/{key}/{id?}' ,'ConnectionController@popUpLoader');
+	Route::get('connections/render/{key}/{id?}' ,'ConnectionController@renderRelated');
+
+	Route::post('connections/addfeedback' ,'ConnectionController@postAddFeedback');
+	Route::post('connections/add' ,'ConnectionController@postAdd');
+	Route::post('connections/edit/{id}' ,'ConnectionController@postEdit');
+
 });
 
 

@@ -19,6 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['namespace' => 'Api'] ,function() {
-	Route::post('edit-potential/{from_site_id}' ,'CompaniesController@editPotential');
-	Route::post('add-potential/{from_site_id}' ,'CompaniesController@addPotential');
+	// Route::post('edit-potential/{from_site_id}' ,'CompaniesController@editPotential');
+	// Route::post('add-potential/{from_site_id}' ,'CompaniesController@addPotential');
 });

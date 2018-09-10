@@ -72,6 +72,14 @@
                         </a>
                     </li>
                     @endif
+                    @if( in_array('connections' ,$my_permissions_triggers) )
+                    <li>
+                        <a class="{{ Request::segment(1) == 'connections' ? 'active' : '' }}"
+                            href="{{ url('connections') }}">
+                            <i class="si si-badge"></i><span class="sidebar-mini-hide">Connections</span>
+                        </a>
+                    </li>
+                    @endif
                     @if( in_array('complete_proposal' ,$my_permissions_triggers) )
                     <li>
                         <a class="{{ Request::segment(1) == 'complete-proposals' ? 'active' : '' }}"
@@ -194,6 +202,14 @@
                         <a class="{{ Request::segment(1) == 'proposal-forms' ? 'active' : '' }}"
                             href="{{ url('proposal-forms') }}">
                             <i class="si si-badge"></i><span class="sidebar-mini-hide">Proposal Forms</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if( in_array('connection_references' ,$my_permissions_triggers) )
+                    <li>
+                        <a class="{{ Request::segment(1) == 'connection-references' ? 'active' : '' }}"
+                            href="{{ url('connection-references') }}">
+                            <i class="si si-badge"></i><span class="sidebar-mini-hide">Connection References</span>
                         </a>
                     </li>
                     @endif
